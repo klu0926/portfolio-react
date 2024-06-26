@@ -1,0 +1,37 @@
+:root {
+  --black: black;
+  --pink: rgb(232, 48, 79);
+  --pink-light: rgb(244, 95, 120);
+}
+
+/* button */
+.button-pink {
+  background-color: var(--pink);
+  border: none;
+}
+.button-pink:hover {
+  background-color: var(--pink-light);
+  border: none;
+}
+
+button:hover {
+  background-color: var(--pink-light);
+}
+
+/* background */
+.bg-black {
+  background-color: var(--black);
+}
+
+/* border */
+.border-red {
+  border: 1px solid red;
+}
+
+.border-blue {
+  border: 1px solid blue;
+}
+
+.border-green {
+  border: 1px solid green;
+}

@@ -1,0 +1,22 @@
+.backgroundImage {
+  content: '';
+  position: fixed;
+  top: 10px;
+  right: 100px;
+  z-index: -1;
+  height: 900px;
+  filter: brightness(0.5);
+}
+
+@media (max-width: 990px) {
+  .backgroundImage {
+    filter: brightness(0.2);
+  }
+}
+
+
+@media (max-width: 760px) {
+  .backgroundImage {
+    filter: brightness(0);
+  }
+}

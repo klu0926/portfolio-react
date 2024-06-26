@@ -6,9 +6,7 @@ export default function useSWRFetcher(url) {
   return useSWR(url, fetcher, {})
 }
 
-
-
-// How to use:  
+// How to use:
 // import useSWRFetcher from './useSWRFetcher'
 // const { data, error, isLoading, mutate } = useSWRFetcher(url)
 
