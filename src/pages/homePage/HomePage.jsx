@@ -4,9 +4,11 @@ import background from '../../images/homePage_background.png'
 // style
 import style from './homePage.module.scss'
 
-const backgroundImage = () => {}
+// fetch post to redux
+import useFetchPosts from '../../hooks/useFetchPost'
 
 const HomePage = () => {
+  const { mutate: refetch } = useFetchPosts()
   return (
     <>
       <div className="page">
@@ -20,5 +22,4 @@ const HomePage = () => {
     </>
   )
 }
-
 export default HomePage

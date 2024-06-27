@@ -16,8 +16,6 @@ const PostsList = () => {
   const status = useSelector((state) => state.posts.status)
   const error = useSelector((state) => state.posts.error)
 
-  console.log('posts', posts)
-
   // posts content
   let content = null
 
