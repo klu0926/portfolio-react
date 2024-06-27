@@ -1,26 +1,27 @@
-import useFetchPosts from '../../helpers/useFetchPost'
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
 import Row from 'react-bootstrap/Row'
 import Spinner from 'react-bootstrap/Spinner'
 import Button from 'react-bootstrap/Button'
-// use hook
-import useTestFetch from '../../helpers/useTestingFetch'
+
+// redux
+import { useSelector } from 'react-redux'
 
 // style
 import style from './postsList.module.scss'
 
 const PostsList = () => {
-  const { data: posts, isLoading, error, mutate } = useFetchPosts()
-  //const { data: posts, isLoading, error, mutate } = useTestFetch('ok')
+  const posts = useSelector((state) => state.posts.data.data)
+  const status = useSelector((state) => state.posts.status)
+  const error = useSelector((state) => state.posts.error)
 
-  console.log('data:', posts)
+  console.log('posts', posts)
 
   // posts content
   let content = null
 
-  if (isLoading) {
+  if (status === 'idle' || status === 'loading') {
     // loading
     content = (
       <Container className="h-100 d-flex justify-content-center">
@@ -30,7 +31,7 @@ const PostsList = () => {
         </div>
       </Container>
     )
-  } else if (error) {
+  } else if (status === 'error') {
     // error
     content = <p className="text-center">{error.message}</p>
   } else {

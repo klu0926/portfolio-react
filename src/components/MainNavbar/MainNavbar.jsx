@@ -7,13 +7,14 @@ import Spinner from 'react-bootstrap/Spinner'
 // style
 import style from './mainNavbar.module.scss'
 
-// hooks
-import useFetchPosts from '../../helpers/useFetchPost'
-import useTestFetch from '../../helpers/useTestingFetch'
+// redux
+import { useSelector } from 'react-redux'
 
 function MainNavbar() {
   //const { data: posts, isLoading, error, mutate } = useFetchPosts()
-  const { data: posts, isLoading, error, mutate } = useTestFetch()
+  const posts = useSelector((state) => state.posts.data.data)
+  const status = useSelector((state) => state.posts.status)
+  const error = useSelector((state) => state.posts.error)
 
   return (
     <>

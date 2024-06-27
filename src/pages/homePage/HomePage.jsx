@@ -1,5 +1,4 @@
 import PostsList from '../../components/PostsList/PostsList'
-import MainNavbar from '../../components/MainNavbar/MainNavbar'
 import background from '../../images/homePage_background.png'
 
 // style
@@ -10,7 +9,6 @@ const backgroundImage = () => {}
 const HomePage = () => {
   return (
     <>
-      <MainNavbar />
       <div className="page">
         <PostsList />
         <img
