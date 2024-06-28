@@ -1,0 +1,30 @@
+.anchor {
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+  width: 40px;
+  height: 40px;
+  border: none;
+  opacity: 0.6;
+  color: var(--pink);
+  transition: opacity 0.4s ease-in-out;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.anchor:hover {
+  opacity: 1;
+  color: var(--pink);
+}
+
+@media (min-width: 1040px) {
+  .anchor {
+    right: 10%;
+  }
+}
+
+@media (min-width: 1600px) {
+  .anchor {
+    right: 20%;
+  }
+}

@@ -2,14 +2,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
+  width: 100%;
+  margin-top: 70px;
 }
 
-#post-display p img {
-}
-
-#post-display .ql-container {
+#post-display div {
   border: none;
   width: 100%;
-  max-width: 1272px;
+  max-width: 1000px;
+}
+
+.ql-snow .ql-editor img {
+  cursor: auto;
+}
+
+#post-display .ql-editor {
+  width: 100%;
 }

@@ -1,12 +1,7 @@
 import Container from 'react-bootstrap/Container'
-import Col from 'react-bootstrap/Col'
-import Image from 'react-bootstrap/Image'
-import Row from 'react-bootstrap/Row'
 import Spinner from 'react-bootstrap/Spinner'
-import Button from 'react-bootstrap/Button'
 
 // style
-import style from './postDisplay.module.scss'
 import './postDisplay.css'
 
 // react
@@ -71,11 +66,10 @@ function PostDisplay({ postId }) {
   }
 
   // Success
-  if (status === 'success' && posts) {
-    console.log('delta:', delta)
-
+  if (status === 'success' && currentPost) {
     content = (
       <>
+        <h1 className="h1 fw-bold lh-lg">{currentPost.title}</h1>
         <Editor ref={quillRef} defaultValue={delta} />
       </>
     )
@@ -83,7 +77,7 @@ function PostDisplay({ postId }) {
 
   return (
     <>
-      <div id='post-display' style={{ marginTop: '50px' }}>{content}</div>
+      <div id="post-display">{content}</div>
     </>
   )
 }
