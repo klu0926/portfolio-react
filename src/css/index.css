@@ -19,9 +19,6 @@ body {
   background-color: black;
 }
 
-.page {
-  position: relative;
-  min-height: 600px;
-  background-color: none;
-  z-index: 1;
+p {
+  font-size: 1.2rem;
 }

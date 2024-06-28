@@ -11,6 +11,10 @@ import { useSelector } from 'react-redux'
 // style
 import style from './postsList.module.scss'
 
+// icon
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
+
 const PostsList = () => {
   const posts = useSelector((state) => state.posts.data.data)
   const status = useSelector((state) => state.posts.status)
@@ -34,7 +38,7 @@ const PostsList = () => {
     content = <p className="text-center">{error.message}</p>
   } else {
     content = posts.map((post) => (
-      <Container className="mb-4" key={post.id}>
+      <Container className="mb-4" style={{ marginTop: '100px' }} key={post.id}>
         <Row>
           <Col sm={12} md={6}>
             <Image className={style.coverImage} src={post.cover} rounded />
@@ -42,7 +46,13 @@ const PostsList = () => {
           <Col className="p-2">
             <h2 className="fw-bold">{post.title}</h2>
             <p>{post.description}</p>
-            <Button className="button-pink">More</Button>
+            <Button
+              variant="link"
+              href={`/posts/${post.id}`}
+              className="button-pink"
+            >
+              <FontAwesomeIcon icon={faRightToBracket} />
+            </Button>
           </Col>
         </Row>
       </Container>

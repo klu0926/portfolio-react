@@ -1,0 +1,15 @@
+#post-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+#post-display p img {
+}
+
+#post-display .ql-container {
+  border: none;
+  width: 100%;
+  max-width: 1272px;
+}

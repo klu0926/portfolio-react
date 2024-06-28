@@ -16,31 +16,37 @@ function MainNavbar() {
   const status = useSelector((state) => state.posts.status)
   const error = useSelector((state) => state.posts.error)
 
+  let postsLinks = null
+
+  if (posts) {
+    postsLinks = posts.map((post) => (
+      <Dropdown.Item key={post.id} href={`/posts/${post.id}`}>
+        {post.title}
+      </Dropdown.Item>
+    ))
+  }
+
   return (
     <>
       <Navbar className={style.navbar} bg="light" data-bs-theme="light">
         <Container>
           <Navbar.Brand href="/" className="fw-bold">
-            LUSART
+            <span>LUSART</span>
           </Navbar.Brand>
           <Dropdown>
             <Dropdown.Toggle
-              variant="outline-dark"
+              variant="outline-light"
               id="dropdown-basic"
               disabled={!posts}
+              style={{ borderWidth: '2.25px', fontWeight: 'bold' }}
             >
               {!posts ? (
                 <Spinner as="span" animation="border" size="sm" />
               ) : (
-                'Posts'
+                <>Posts</>
               )}
             </Dropdown.Toggle>
-
-            <Dropdown.Menu align="end">
-              <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-            </Dropdown.Menu>
+            <Dropdown.Menu align="end">{postsLinks}</Dropdown.Menu>
           </Dropdown>
         </Container>
       </Navbar>

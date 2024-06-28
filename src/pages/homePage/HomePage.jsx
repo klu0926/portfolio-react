@@ -1,5 +1,5 @@
 import PostsList from '../../components/PostsList/PostsList'
-import background from '../../images/homePage_background.png'
+import background from '/images/homePage_background.png'
 
 // style
 import style from './homePage.module.scss'
@@ -8,10 +8,10 @@ import style from './homePage.module.scss'
 import useFetchPosts from '../../hooks/useFetchPost'
 
 const HomePage = () => {
-  const { mutate: refetch } = useFetchPosts()
+  useFetchPosts()
   return (
     <>
-      <div className="page">
+      <div>
         <PostsList />
         <img
           className={style.backgroundImage}

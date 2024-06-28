@@ -26,8 +26,6 @@ function useFetchPosts() {
     }
   }, [data, error, dispatch])
 
-
-  console.log('useFetchPosts')
   return { mutate }
 }
 export default useFetchPosts

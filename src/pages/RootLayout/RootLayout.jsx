@@ -1,19 +1,17 @@
 import { Outlet } from 'react-router-dom'
 import Footer from '../../common/Footer/Footer'
-import MainNavbar from '../../components/MainNavbar/MainNavbar'
+import MainNavbar from '../../common/MainNavbar/MainNavbar'
 
-// redux
-import { Provider } from 'react-redux'
-import store from '../../store/store'
+// fetch post
+import useFetchPosts from '../../hooks/useFetchPost'
 
 function RootLayout() {
+  useFetchPosts()
   return (
     <>
-      <Provider store={store}>
-        <MainNavbar />
-        <Outlet />
-        <Footer />
-      </Provider>
+      <MainNavbar />
+      <Outlet />
+      <Footer />
     </>
   )
 }

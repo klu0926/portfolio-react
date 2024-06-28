@@ -7,10 +7,12 @@
 /* button */
 .button-pink {
   background-color: var(--pink);
+  color: white;
   border: none;
 }
 .button-pink:hover {
   background-color: var(--pink-light);
+  color: white;
   border: none;
 }
 

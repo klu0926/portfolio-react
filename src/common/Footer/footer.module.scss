@@ -8,14 +8,30 @@
   margin-top: 2rem;
   gap: 10px;
   z-index: 2;
+  .footerNav {
+    display: flex;
+    gap: 30px;
+  }
+
   p {
+    font-weight: bold;
     margin: 0;
   }
 
   .link {
+    font-weight: bold;
     color: var(--pink);
   }
   .link:hover {
     color: var(--pink-light);
+  }
+  .linkDiv {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    .icon {
+      width: 25px;
+      height: 25px;
+    }
   }
 }
