@@ -1,4 +1,51 @@
+.mainContainer {
+  margin-top: 100px;
+}
+
+.container {
+  position: relative;
+  margin-bottom: 50px;
+}
+
 .coverImage {
   width: 600px;
   max-width: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.2s ease-in-out, filter 0.1s ease-in-out;
+}
+
+.postTitle {
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+  margin-top: 10px;
+}
+
+.postLink {
+  text-decoration: none;
+  color: white;
+}
+
+.postLink {
+  z-index: 5;
+}
+
+.postLink:hover .postTitle {
+  color: var(--pink);
+}
+
+.postLink:hover .coverImage {
+  filter: saturate(1.1) brightness(1.05);
+}
+
+.metaContainer {
+  p {
+    margin: 0;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .postLink:hover .coverImage {
+    transform: scale(1.01);
+  }
 }

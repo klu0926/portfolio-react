@@ -1,7 +1,6 @@
 @import url('./color.css');
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   width: 100%;
@@ -17,8 +16,17 @@ body {
   height: 100vh;
   color: white;
   background-color: black;
+  font-family: 'Noto Sans', sans-serif;
 }
 
 p {
   font-size: 1.2rem;
+}
+
+.link {
+  color: var(--pink);
+}
+
+.link:hover {
+  color: var(--pink-light);
 }

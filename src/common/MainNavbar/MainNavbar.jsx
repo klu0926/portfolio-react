@@ -43,7 +43,7 @@ function MainNavbar() {
               {!posts ? (
                 <Spinner as="span" animation="border" size="sm" />
               ) : (
-                <>Posts</>
+                <>Projects</>
               )}
             </Dropdown.Toggle>
             <Dropdown.Menu align="end">{postsLinks}</Dropdown.Menu>

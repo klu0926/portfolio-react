@@ -12,5 +12,7 @@ import { VideoBlot } from './VideoBlot'
 Quill.register(CustomImageBlot)
 Quill.register(VideoBlot)
 
+// css
+import './quill.css'
 
 export default Quill

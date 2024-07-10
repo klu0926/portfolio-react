@@ -3,17 +3,12 @@ import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
 import Row from 'react-bootstrap/Row'
 import Spinner from 'react-bootstrap/Spinner'
-import Button from 'react-bootstrap/Button'
 
 // redux
 import { useSelector } from 'react-redux'
 
 // style
 import style from './postsList.module.scss'
-
-// icon
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 
 const PostsList = () => {
   const posts = useSelector((state) => state.posts.data.data)
@@ -37,31 +32,54 @@ const PostsList = () => {
     // error
     content = <p className="text-center">{error.message}</p>
   } else {
-    content = posts.map((post) => (
-      <Container className="mb-4" style={{ marginTop: '100px' }} key={post.id}>
-        <Row>
-          <Col sm={12} md={6}>
-            <Image className={style.coverImage} src={post.cover} rounded />
-          </Col>
-          <Col className="p-2">
-            <h2 className="fw-bold">{post.title}</h2>
-            <p>{post.description}</p>
-            <Button
-              variant="link"
-              href={`/posts/${post.id}`}
-              className="button-pink"
-            >
-              <FontAwesomeIcon icon={faRightToBracket} />
-            </Button>
-          </Col>
-        </Row>
-      </Container>
-    ))
+    content = posts.map((post) => {
+      // render meta
+      let metaArray = []
+      if (post.meta && Array.isArray(post.meta)) {
+        metaArray = post.meta.map((meta, index) => {
+          // is link
+          if (meta.value.includes('http')) {
+            return (
+              <p key={index}>
+                {meta.key} :{' '}
+                <a className="link" target="_blank" href={meta.value}>
+                  {meta.value}
+                </a>
+              </p>
+            )
+          } else {
+            return (
+              <p key={index}>
+                {meta.key} : {meta.value}
+              </p>
+            )
+          }
+        })
+      }
+      // map return single post
+      return (
+        <a className={style.postLink} href={`/posts/${post.id}`} key={post.id}>
+          <Container className={style.container}>
+            <Row>
+              <Col sm={12} md={6}>
+                <Image className={style.coverImage} src={post.cover} rounded />
+              </Col>
+              <Col className={style.textCol}>
+                <h2 className={style.postTitle}>{post.title}</h2>
+                <p>{post.description}</p>
+                <div className={style.metaContainer}>{metaArray}</div>
+              </Col>
+            </Row>
+          </Container>
+        </a>
+      )
+    })
   }
 
+  // return all posts content
   return (
     <>
-      <Container className="mt-4">{content}</Container>
+      <Container className={style.mainContainer}>{content}</Container>
     </>
   )
 }

@@ -3,6 +3,7 @@ import Spinner from 'react-bootstrap/Spinner'
 
 // style
 import './postDisplay.css'
+import style from './postDisplay.module.scss'
 
 // react
 import { useEffect, useState, useRef } from 'react'
@@ -22,7 +23,6 @@ function PostDisplay({ postId }) {
   const error = useSelector((state) => state.posts.error)
   const quillRef = useRef()
 
-  const [readyOnly, setReadOnly] = useState(false)
   const [currentPost, setCurrentPost] = useState(null)
   const [delta, setDelta] = useState(null)
 
@@ -67,9 +67,37 @@ function PostDisplay({ postId }) {
 
   // Success
   if (status === 'success' && currentPost) {
+    // meta tags
+    let metaArray = []
+    if (currentPost.meta && Array.isArray(currentPost.meta)) {
+      metaArray = currentPost.meta.map((meta, index) => {
+        // is link
+        if (meta.value.includes('http')) {
+          return (
+            <p key={index}>
+              {meta.key} :{' '}
+              <a className="link" target="_blank" href={meta.value}>
+                {meta.value}
+              </a>
+            </p>
+          )
+        } else {
+          return (
+            <p key={index}>
+              {meta.key} : {meta.value}
+            </p>
+          )
+        }
+      })
+    }
+
     content = (
       <>
-        <h1 className="h1 fw-bold lh-lg">{currentPost.title}</h1>
+        <div className="post-title-div">
+          <h1 className="post-title">{currentPost.title}</h1>
+        </div>
+        <div className={style.metaContainer}>{metaArray}</div>
+
         <Editor ref={quillRef} defaultValue={delta} />
       </>
     )
