@@ -77,7 +77,7 @@ function PostDisplay({ postId }) {
             <p key={index}>
               {meta.key} :{' '}
               <a className="link" target="_blank" href={meta.value}>
-                {meta.value}
+                {meta.value.split('//')[1]}
               </a>
             </p>
           )
