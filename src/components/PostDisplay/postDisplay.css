@@ -36,6 +36,11 @@
 /* text size */
 .ql-snow .ql-editor {
   font-family: 'Noto Sans', sans-serif;
+  cursor: pointer;
+}
+
+.ql-editor p{
+  cursor: default;
 }
 
 .ql-editor .ql-size-huge {

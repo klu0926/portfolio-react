@@ -18,23 +18,37 @@ class CustomImageBlot extends Embed {
     if (node.hasAttribute('width')) {
       format.width = node.getAttribute('width');
     }
+    if (node.hasAttribute('invert')) {
+      format.invert = node.getAttribute('invert');
+    }
     return format;
   }
 
   format(name, value) {
+    let isFormatted = false
     if (name === 'height' || name === 'width') {
+      isFormatted = true
       if (value) {
         this.domNode.setAttribute(name, value);
       } else {
         this.domNode.removeAttribute(name);
       }
-    } else {
+    }
+
+    if (name === 'invert') {
+      isFormatted = true
+      if (value) {
+        this.domNode.style.filter = 'invert(1)';
+        this.domNode.setAttribute('invert', 'true');
+      } else {
+        this.domNode.style.filter = '';
+        this.domNode.removeAttribute('invert');
+      }
+    }
+
+    if (!isFormatted) {
       super.format(name, value);
     }
-  }
-
-  static value(node) {
-    return node.getAttribute('src');
   }
 }
 
