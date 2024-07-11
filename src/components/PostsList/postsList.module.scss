@@ -31,7 +31,7 @@
 
 .container:hover .coverImage {
   transform: scale(1.01);
-  filter: saturate(1.1) brightness(1.05);
+  filter: saturate(1.2) brightness(1.05);
 }
 
 // meta
@@ -56,9 +56,9 @@
   padding: 4px 6px;
   text-transform: capitalize;
   color: var(--gray);
-  border: 1px solid var(--gray);
-  border-radius: 2px;
-  font-size: 0.9rem;
+  border: 1.4px solid var(--gray);
+  border-radius: 4px;
+  font-size: 0.855rem;
   cursor: default;
 }
 

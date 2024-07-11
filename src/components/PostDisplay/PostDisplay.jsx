@@ -57,11 +57,9 @@ function PostDisplay({ postId }) {
   // loading
   if (!posts || !tags) {
     content = (
-      <Container className="h-100 d-flex justify-content-center">
-        <div>
+      <Container className="h-100 d-flex justify-content-center mt-4">
           <Spinner as="span" animation="border" size="sm" />
           <span className="ps-2">LOADING</span>
-        </div>
       </Container>
     )
   }
@@ -82,7 +80,7 @@ function PostDisplay({ postId }) {
           return (
             <p key={index}>
               {meta.key} :{' '}
-              <a className="link" target="_blank" href={meta.value}>
+              <a className="link font-1" target="_blank" href={meta.value}>
                 {meta.value.split('//')[1]}
               </a>
             </p>

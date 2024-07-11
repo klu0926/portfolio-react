@@ -7,7 +7,7 @@ function PostPage() {
   return (
     <>
       <div className="page">
-        <PostDisplay postId={postId} />
+          <PostDisplay postId={postId} />
       </div>
     </>
   )

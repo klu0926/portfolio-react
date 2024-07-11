@@ -36,7 +36,7 @@ function MainNavbar() {
           <Dropdown>
             <Dropdown.Toggle
               variant="outline-light"
-              id="dropdown-basic"
+              className={style.dropdownToggle}
               disabled={!posts}
               style={{ borderWidth: '2.25px', fontWeight: 'bold' }}
             >
@@ -46,7 +46,7 @@ function MainNavbar() {
                 <>Projects</>
               )}
             </Dropdown.Toggle>
-            <Dropdown.Menu align="end">{postsLinks}</Dropdown.Menu>
+            <Dropdown.Menu align="end" className={style.dropdownMenu}>{postsLinks}</Dropdown.Menu>
           </Dropdown>
         </Container>
       </Navbar>

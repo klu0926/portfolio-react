@@ -5,7 +5,13 @@
   right: 100px;
   z-index: -1;
   height: 900px;
-  filter: brightness(0.5);
+  filter: brightness(0.55);
+}
+
+@media (max-width: 1600px) {
+  .backgroundImage {
+    filter: brightness(0.4);
+  }
 }
 
 @media (max-width: 990px) {
@@ -13,7 +19,6 @@
     filter: brightness(0.2);
   }
 }
-
 
 @media (max-width: 760px) {
   .backgroundImage {

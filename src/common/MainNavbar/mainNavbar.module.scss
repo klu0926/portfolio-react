@@ -8,3 +8,40 @@
     color: white;
   }
 }
+
+.dropdownToggle {
+  display: flex;
+  align-items: center;
+}
+
+.dropdownMenu {
+  top: 140% !important;
+  background-color: rgba(255, 255, 255, 0) !important;
+  border: 2px solid white;
+  border-radius: 3px;
+  backdrop-filter: blur(10px) brightness(60%);
+  padding: 10px 5px;
+  z-index: 10;
+}
+
+.dropdownMenu a {
+  color: white;
+  font-family: 'Noto Sans', sans-serif;
+  padding-left: 5px;
+  padding-right: 20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.dropdownMenu a:hover {
+  transform: scale(1.03) translateX(13px);
+}
+
+.dropdownMenu a:active {
+  background-color: var(--pink);
+}
+
+@supports not (backdrop-filter: blur(10px)) {
+  .dropdownMenu {
+    background-color: rgb(0, 0, 0) !important;
+  }
+}

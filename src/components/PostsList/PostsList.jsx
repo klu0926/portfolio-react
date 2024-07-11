@@ -56,7 +56,7 @@ const PostsList = () => {
             return (
               <p key={index}>
                 {meta.key} :{' '}
-                <a className="link" target="_blank" href={meta.value}>
+                <a className="link font-1" target="_blank" href={meta.value}>
                   {meta.value.split('//')[1]}
                 </a>
               </p>
