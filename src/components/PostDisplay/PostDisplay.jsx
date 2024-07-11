@@ -5,6 +5,10 @@ import Spinner from 'react-bootstrap/Spinner'
 import './postDisplay.css'
 import style from './postDisplay.module.scss'
 
+// server url
+import url from '../../data/url'
+const server = url.server
+
 // react
 import { useEffect, useState, useRef } from 'react'
 
@@ -21,6 +25,8 @@ function PostDisplay({ postId }) {
   const posts = useSelector((state) => state.posts.data.data)
   const status = useSelector((state) => state.posts.status)
   const error = useSelector((state) => state.posts.error)
+  const tags = useSelector((state) => state.tags.data.data)
+
   const quillRef = useRef()
 
   const [currentPost, setCurrentPost] = useState(null)
@@ -49,7 +55,7 @@ function PostDisplay({ postId }) {
 
   let content = null
   // loading
-  if (status === 'idle' || status === 'loading') {
+  if (!posts || !tags) {
     content = (
       <Container className="h-100 d-flex justify-content-center">
         <div>
@@ -66,8 +72,8 @@ function PostDisplay({ postId }) {
   }
 
   // Success
-  if (status === 'success' && currentPost) {
-    // meta tags
+  if (currentPost && tags) {
+    // meta
     let metaArray = []
     if (currentPost.meta && Array.isArray(currentPost.meta)) {
       metaArray = currentPost.meta.map((meta, index) => {
@@ -90,14 +96,30 @@ function PostDisplay({ postId }) {
         }
       })
     }
+    // tags
+    let tagsArray = []
+    if (currentPost.tags && Array.isArray(currentPost.tags)) {
+      tagsArray = currentPost.tags.map((postTag) => {
+        const currentTag = tags.find(
+          (tag) => Number(tag.id) === Number(postTag.id)
+        )
+        if (!currentTag) return
+        return (
+          <span key={currentTag.id} className={style.tag}>
+            <img src={server + currentTag.icon} alt="tag-icon" />
+            {currentTag.name}
+          </span>
+        )
+      })
+    }
 
     content = (
       <>
         <div className="post-title-div">
           <h1 className="post-title">{currentPost.title}</h1>
         </div>
+        <div className={style.tagsContainer}>{tagsArray}</div>
         <div className={style.metaContainer}>{metaArray}</div>
-
         <Editor ref={quillRef} defaultValue={delta} />
       </>
     )

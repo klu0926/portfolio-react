@@ -1,7 +1,36 @@
 .metaContainer {
   padding: 15px;
 
-  p{
+  p {
     margin: 0;
   }
+}
+
+// tag
+.tagsContainer {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0px 15px;
+  margin-bottom: 10px;
+}
+.tag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 6px;
+  text-transform: capitalize;
+  color: var(--gray);
+  border: 1px solid var(--gray);
+  border-radius: 2px;
+  font-size: 0.9rem;
+  cursor: default;
+}
+
+.tag img {
+  width: 25px;
+  height: 25px;
 }

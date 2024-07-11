@@ -10,15 +10,32 @@ import { useSelector } from 'react-redux'
 // style
 import style from './postsList.module.scss'
 
+// server url
+import url from '../../data/url'
+const server = url.server
+
 const PostsList = () => {
   const posts = useSelector((state) => state.posts.data.data)
   const status = useSelector((state) => state.posts.status)
   const error = useSelector((state) => state.posts.error)
+  const tags = useSelector((state) => state.tags.data.data)
 
   // posts content
   let content = null
 
-  if (status === 'idle' || status === 'loading') {
+  // clickHandler
+  const containerClickHandler = (event, postId) => {
+    if (event.target.nodeName === 'A') {
+      console.log('is a')
+      return
+    }
+    window.location.href = `/posts/${postId}`
+  }
+
+  if (status === 'error') {
+    // error
+    content = <p className="text-center">{error.message}</p>
+  } else if (!posts || !tags) {
     // loading
     content = (
       <Container className="h-100 d-flex justify-content-center">
@@ -28,9 +45,6 @@ const PostsList = () => {
         </div>
       </Container>
     )
-  } else if (status === 'error') {
-    // error
-    content = <p className="text-center">{error.message}</p>
   } else {
     content = posts.map((post) => {
       // render meta
@@ -56,22 +70,44 @@ const PostsList = () => {
           }
         })
       }
+
+      // tags
+      let tagsArray = []
+      if (post.tags && Array.isArray(post.tags)) {
+        tagsArray = post.tags.map((postTag) => {
+          // current tag
+          const currentTag = tags.find(
+            (tag) => Number(tag.id) === Number(postTag.id)
+          )
+          if (!currentTag) return
+          return (
+            <span key={currentTag.id} className={style.tag}>
+              <img src={server + currentTag.icon} alt="tag-icon" />
+              {currentTag.name}
+            </span>
+          )
+        })
+      }
+
       // map return single post
       return (
-        <a className={style.postLink} href={`/posts/${post.id}`} key={post.id}>
-          <Container className={style.container}>
-            <Row>
-              <Col sm={12} md={6}>
-                <Image className={style.coverImage} src={post.cover} rounded />
-              </Col>
-              <Col className={style.textCol}>
-                <h2 className={style.postTitle}>{post.title}</h2>
-                <p>{post.description}</p>
-                <div className={style.metaContainer}>{metaArray}</div>
-              </Col>
-            </Row>
-          </Container>
-        </a>
+        <Container
+          key={post.id}
+          className={style.container}
+          onClick={(e) => containerClickHandler(e, post.id)}
+        >
+          <Row>
+            <Col sm={12} md={6}>
+              <Image className={style.coverImage} src={post.cover} rounded />
+            </Col>
+            <Col className={style.textCol}>
+              <h2 className={style.postTitle}>{post.title}</h2>
+              <p>{post.description}</p>
+              <div className={style.tagsContainer}>{tagsArray}</div>
+              <div className={style.metaContainer}>{metaArray}</div>
+            </Col>
+          </Row>
+        </Container>
       )
     })
   }

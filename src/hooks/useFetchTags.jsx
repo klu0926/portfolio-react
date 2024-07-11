@@ -1,13 +1,13 @@
 import url from '../data/url'
 import useSWRFetcher from './useSWRFetcher'
 import { useDispatch } from 'react-redux'
-import { setPosts, setLoading, setError } from '../store/postsSlice'
+import { setTags, setLoading, setError } from '../store/tagsSlice'
 import { useEffect } from 'react'
 
 function useFetchPosts() {
   // actual function starts here
   // URL
-  let postUrl = url.server + '/posts'
+  let postUrl = url.server + '/tags'
 
   // SWR
   const response = useSWRFetcher(postUrl)
@@ -20,11 +20,11 @@ function useFetchPosts() {
     if (isLoading) {
       dispatch(setLoading())
     } else if (data) {
-      dispatch(setPosts(data))
+      dispatch(setTags(data))
     } else if (error) {
       dispatch(setError(error.message))
     }
-  }, [data,isLoading, error, dispatch])
+  }, [data, isLoading, error, dispatch])
 
   return { mutate }
 }

@@ -1,5 +1,8 @@
 :root {
   --black: black;
+  --gray: rgb(176, 176, 176);
+  --gray-dark: rgb(125, 125, 125);
+
   --pink: #e8304f;
   --pink-light: rgb(244, 95, 120);
 }

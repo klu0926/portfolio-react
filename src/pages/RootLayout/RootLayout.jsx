@@ -5,9 +5,11 @@ import Anchor from '../../common/Anchor/Anchor'
 
 // fetch post
 import useFetchPosts from '../../hooks/useFetchPost'
+import useFetchTags from '../../hooks/useFetchTags'
 
 function RootLayout() {
   useFetchPosts()
+  useFetchTags()
   return (
     <>
       <Anchor/>

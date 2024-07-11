@@ -24,7 +24,7 @@ p {
 }
 
 .link {
-  color: var(--pink);
+  color: var(--gray-dark);
 }
 
 .link:hover {
