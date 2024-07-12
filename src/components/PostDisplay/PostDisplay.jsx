@@ -113,8 +113,8 @@ function PostDisplay({ postId }) {
 
     content = (
       <>
-        <div className="post-title-div">
-          <h1 className="post-title">{currentPost.title}</h1>
+        <div className={style.postTitleDiv}>
+          <h1 className={style.postTitle}>{currentPost.title}</h1>
         </div>
         <div className={style.tagsContainer}>{tagsArray}</div>
         <div className={style.metaContainer}>{metaArray}</div>

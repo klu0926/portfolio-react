@@ -5,6 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import Spinner from 'react-bootstrap/Spinner'
 
 // style
+import './mainNavbar.css'
 import style from './mainNavbar.module.scss'
 
 // redux
@@ -31,7 +32,7 @@ function MainNavbar() {
       <Navbar className={style.navbar} bg="light" data-bs-theme="light">
         <Container>
           <Navbar.Brand href="/" className="fw-bold">
-            <span>LUSART</span>
+            <button className={style.title}>LUSART</button>
           </Navbar.Brand>
           <Dropdown>
             <Dropdown.Toggle
@@ -43,13 +44,16 @@ function MainNavbar() {
               {!posts ? (
                 <Spinner as="span" animation="border" size="sm" />
               ) : (
-                <>Projects</>
+                <>Posts</>
               )}
             </Dropdown.Toggle>
-            <Dropdown.Menu align="end" className={style.dropdownMenu}>{postsLinks}</Dropdown.Menu>
+            <Dropdown.Menu align="end" className={style.dropdownMenu}>
+              {postsLinks}
+            </Dropdown.Menu>
           </Dropdown>
         </Container>
       </Navbar>
+      <div className={style.navbarBackDrop}></div>
     </>
   )
 }

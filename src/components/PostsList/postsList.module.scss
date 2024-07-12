@@ -8,30 +8,45 @@
 }
 
 .coverImage {
+  margin-top: 15px;
   width: 600px;
   max-width: 100%;
   object-fit: cover;
   object-position: center;
-  transition: transform 0.2s ease-in-out, filter 0.1s ease-in-out;
+  transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.coverImage:hover {
+  transform: scale(1.02);
 }
 
 .postTitle {
   font-weight: bold;
   transition: color 0.3s ease-in-out;
-  margin-top: 10px;
-}
-
-.container {
   cursor: pointer;
 }
 
+.description {
+  cursor: default;
+}
+
 .container:hover .postTitle {
-  color: var(--pink);
+  color: rgb(255, 255, 255);
+  animation: text-glow-white 1.2s ease-in-out infinite alternate;
 }
 
 .container:hover .coverImage {
-  transform: scale(1.01);
-  filter: saturate(1.2) brightness(1.05);
+  filter: saturate(1.2) brightness(1.05) contrast(0.95);
+}
+
+@keyframes text-glow-white {
+  from {
+    text-shadow: 0 0 5px #ffffff, 0 0 50px #ffffffe1, 0 0 200px #ff0000d6;
+  }
+  to {
+    text-shadow: 0 0 10px #ffffff, 0 0 30px #ffffff, 0 0 100px #ff0000d6;
+  }
 }
 
 // meta

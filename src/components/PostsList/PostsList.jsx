@@ -91,18 +91,24 @@ const PostsList = () => {
 
       // map return single post
       return (
-        <Container
-          key={post.id}
-          className={style.container}
-          onClick={(e) => containerClickHandler(e, post.id)}
-        >
-          <Row>
+        <Container key={post.id} className={style.container}>
+          <Row className="gap-3">
             <Col sm={12} md={6}>
-              <Image className={style.coverImage} src={post.cover} rounded />
+              <Image
+                className={style.coverImage}
+                src={post.cover}
+                rounded
+                onClick={(e) => containerClickHandler(e, post.id)}
+              />
             </Col>
             <Col className={style.textCol}>
-              <h2 className={style.postTitle}>{post.title}</h2>
-              <p>{post.description}</p>
+              <h2
+                className={style.postTitle}
+                onClick={(e) => containerClickHandler(e, post.id)}
+              >
+                {post.title}
+              </h2>
+              <p className={style.description}>{post.description}</p>
               <div className={style.tagsContainer}>{tagsArray}</div>
               <div className={style.metaContainer}>{metaArray}</div>
             </Col>

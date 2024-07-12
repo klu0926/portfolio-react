@@ -12,19 +12,6 @@
   max-width: 1000px;
 }
 
-.post-title-div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100px;
-  padding: 30px;
-}
-
-.post-title {
-  font-size: 3.5rem;
-  font-weight: bold;
-}
-
 .ql-snow .ql-editor img {
   cursor: auto;
 }
@@ -68,15 +55,15 @@
 }
 
 .ql-snow .ql-editor p {
-  font-size: 1.1rem !important;
+  font-size: 1.05rem !important;
 }
 
 .ql-snow .ql-editor ol {
-  font-size: 1.2rem !important;
+  font-size: 1.05rem !important;
 }
 
 .ql-snow .ql-editor ul {
-  font-size: 1.2rem !important;
+  font-size: 1.05rem !important;
 }
 
 .ql-snow .ql-editor li span {
