@@ -82,8 +82,27 @@
   height: 25px;
 }
 
+// banner
+.bannerContainer {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  margin-top: 40px;
+}
+
+.banner {
+  height: 600px;
+}
+
 @media screen and (min-width: 1200px) {
   .postLink:hover .coverImage {
     transform: scale(1.01);
+  }
+  .bannerContainer {
+    display: flex;
+  }
+  .mainContainer {
+    margin-top: 50px;
   }
 }

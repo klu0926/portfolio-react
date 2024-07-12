@@ -4,6 +4,9 @@ import Image from 'react-bootstrap/Image'
 import Row from 'react-bootstrap/Row'
 import Spinner from 'react-bootstrap/Spinner'
 
+// banner
+import Banner from '../Banner/Banner'
+
 // redux
 import { useSelector } from 'react-redux'
 
@@ -121,6 +124,7 @@ const PostsList = () => {
   // return all posts content
   return (
     <>
+      <Banner />
       <Container className={style.mainContainer}>{content}</Container>
     </>
   )
