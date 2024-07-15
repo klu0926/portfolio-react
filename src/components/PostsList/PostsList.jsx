@@ -7,6 +7,9 @@ import Spinner from 'react-bootstrap/Spinner'
 // banner
 import Banner from '../Banner/Banner'
 
+// background
+import BackgroundImage from './BackgroundImage'
+
 // redux
 import { useSelector } from 'react-redux'
 
@@ -126,6 +129,7 @@ const PostsList = () => {
     <>
       <Banner />
       <Container className={style.mainContainer}>{content}</Container>
+      <BackgroundImage />
     </>
   )
 }

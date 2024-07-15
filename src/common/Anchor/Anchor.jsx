@@ -8,9 +8,9 @@ function Anchor() {
   const [isVisible, setIsVisible] = useState(false)
 
   // scroll to top
-  function toTop() {
+  const toTop = useCallback(() => {
     window.scrollTo(0, 0)
-  }
+  }, [])
 
   // check scroll position
   const checkScrollTop = useCallback(() => {
@@ -24,6 +24,10 @@ function Anchor() {
   // add listener
   useEffect(() => {
     window.addEventListener('scroll', checkScrollTop)
+
+    return () => {
+      window.removeEventListener('scroll', checkScrollTop)
+    }
   }, [checkScrollTop])
 
   return (

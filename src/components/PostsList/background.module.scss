@@ -1,0 +1,29 @@
+.backgroundImage {
+  position: fixed;
+  top: 0px;
+  right: 50%;
+  transform: translateX(140%);
+  z-index: -1;
+  height: 800px;
+  opacity: 0;
+  filter: brightness(0.45);
+  transition: opacity 0.3s linear;
+}
+
+@media (max-width: 1600px) {
+  .backgroundImage {
+    filter: brightness(0.45);
+  }
+}
+
+@media (max-width: 990px) {
+  .backgroundImage {
+    filter: brightness(0.34);
+  }
+}
+
+@media (max-width: 760px) {
+  .backgroundImage {
+    filter: brightness(0);
+  }
+}
