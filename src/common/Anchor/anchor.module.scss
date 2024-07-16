@@ -1,20 +1,36 @@
 .anchor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   bottom: 5%;
   right: 5%;
   width: 40px;
   height: 40px;
-  border: none;
-  opacity: 0.6;
-  color: var(--pink);
-  transition: opacity 0.4s ease-in-out;
+  opacity: 0;
+  border: 2px solid var(--pink);
+  border-radius: 3px;
+  background-color: rgb(0, 0, 0);
   cursor: pointer;
   z-index: 10;
+  transition: all 0.2s ease-in-out;
 }
 
 .anchor:hover {
-  opacity: 1;
+  opacity: 1 !important;
+  background-color: var(--pink);
+  box-shadow: 0 0 15px 2px rgba(255, 104, 104, 0.5),
+    0px 5px 30px 5px rgba(255, 104, 104, 0.25);
+}
+
+.anchor:hover .anchorIcon {
+  color: white;
+}
+
+.anchorIcon {
   color: var(--pink);
+  font-size: 1.6rem;
+  transition: all 0.2s ease-in-out;
 }
 
 @media (min-width: 1200px) {

@@ -17,7 +17,7 @@
   left: 0;
   width: 100%;
   height: 55px;
-  backdrop-filter: blur(10px) brightness(70%) ;
+  backdrop-filter: blur(10px) brightness(70%);
   z-index: 4;
 }
 
@@ -25,7 +25,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--pink) ;
+  color: var(--pink);
   transition: color 0.1s ease-in-out;
   border: none;
   background: none;
@@ -34,12 +34,12 @@
 
   &:active {
     color: white;
-    transform: scale(0.96) ;
+    transform: scale(0.96);
   }
   &:hover {
-    color: white ;
+    color: white;
     background: none;
-    border: none ;
+    border: none;
   }
 }
 
@@ -58,7 +58,7 @@
   background-color: rgba(255, 255, 255, 0);
   border: 2px solid var(--pink);
   border-radius: 3px;
-  backdrop-filter: blur(5px) brightness(70%) !important;
+  backdrop-filter: blur(5px) brightness(60%) !important;
   padding: 10px;
   z-index: 10;
 }
@@ -91,17 +91,41 @@
 
 // group link
 .dropdownMenu .groupLink {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 5px;
   color: white;
   border-bottom: 1px solid var(--pink);
   transform: translateX(-10px);
   margin-bottom: 7px;
+  padding: 6px;
   padding-left: 15px;
+  transition: all 0.1 ease-in-out;
 
   &:hover {
     background-color: rgba(255, 255, 255, 0);
     color: white;
     border-bottom: 1px solid white;
-    padding-left: 30px;
+
+    .groupName {
+      transform: translateX(5px);
+    }
+
+    .groupArrow {
+      opacity: 1;
+    }
+  }
+  .groupName {
+    transform: translateX(-13px);
+    transition: transform 0.2s ease-in-out;
+  }
+  .groupArrow {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
   }
 }
 

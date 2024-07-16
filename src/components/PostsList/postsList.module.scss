@@ -1,5 +1,5 @@
 .mainContainer {
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 .container {
@@ -7,8 +7,14 @@
   margin-bottom: 50px;
 }
 
+.coverImageDiv { 
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  padding-top: 5px;
+}
+
 .coverImage {
-  margin-top: 15px;
   width: 600px;
   max-width: 100%;
   object-fit: cover;
@@ -101,8 +107,5 @@
   }
   .bannerContainer {
     display: flex;
-  }
-  .mainContainer {
-    margin-top: 50px;
   }
 }

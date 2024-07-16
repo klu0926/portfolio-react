@@ -3,9 +3,10 @@ import Nav from 'react-bootstrap/Nav'
 // style
 import style from './footer.module.scss'
 
-// icon
+// font awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub, faMedium } from '@fortawesome/free-brands-svg-icons'
+import { faFire } from '@fortawesome/free-solid-svg-icons'
 
 export default function Footer() {
   return (

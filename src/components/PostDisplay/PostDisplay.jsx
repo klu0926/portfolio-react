@@ -58,8 +58,8 @@ function PostDisplay({ postId }) {
   if (!posts || !tags) {
     content = (
       <Container className="h-100 d-flex justify-content-center mt-4">
-          <Spinner as="span" animation="border" size="sm" />
-          <span className="ps-2">LOADING</span>
+        <Spinner as="span" animation="border" size="sm" />
+        <span className="ps-2">LOADING</span>
       </Container>
     )
   }
@@ -117,7 +117,9 @@ function PostDisplay({ postId }) {
           <h1 className={style.postTitle}>{currentPost.title}</h1>
         </div>
         <div className={style.tagsContainer}>{tagsArray}</div>
-        <div className={style.metaContainer}>{metaArray}</div>
+        {metaArray?.length > 0 && (
+          <div className={style.metaContainer}>{metaArray}</div>
+        )}
         <Editor ref={quillRef} defaultValue={delta} />
       </>
     )

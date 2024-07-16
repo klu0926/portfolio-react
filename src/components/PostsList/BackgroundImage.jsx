@@ -10,7 +10,9 @@ const BackgroundImage = () => {
 
   // scroll handler
   const scrollHandler = useCallback(() => {
-    if (window.scrollY >= offSetY) {
+    if (window.scrollY > offSetY / 2 && window.scrollY < offSetY) {
+      backgroundRef.current.style.opacity = '0.5'
+    } else if (window.scrollY > offSetY) {
       backgroundRef.current.style.opacity = '1'
     } else {
       backgroundRef.current.style.opacity = '0'

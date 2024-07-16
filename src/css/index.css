@@ -19,6 +19,11 @@ body {
   font-family: 'Noto Sans', sans-serif;
 }
 
+.page {
+  margin-top: 100px;
+  min-height: 100vh;
+}
+
 p {
   font-size: 17px;
 }

@@ -7,6 +7,7 @@ import RootLayout from './pages/RootLayout/RootLayout'
 import HomePage from './pages/homePage/HomePage'
 import PostPage from './pages/postPage/PostPage'
 import ContactPage from './pages/contactPage/ContactPage'
+import NotFoundPage from './pages/notFoundPage/NotFoundPage'
 
 // redux
 import { Provider } from 'react-redux'
@@ -21,6 +22,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/posts/:postId" element={<PostPage />}></Route>
+            <Route path="*" element={<NotFoundPage />}></Route>
           </Route>
         </Routes>
       </Provider>

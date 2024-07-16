@@ -6,10 +6,15 @@ import Spinner from 'react-bootstrap/Spinner'
 
 // react
 import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 // style
 import './mainNavbar.css'
 import style from './mainNavbar.module.scss'
+
+// font awesome
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
 // redux
 import { useSelector } from 'react-redux'
@@ -19,6 +24,7 @@ function MainNavbar() {
   const posts = useSelector((state) => state.posts.data.data)
   const status = useSelector((state) => state.posts.status)
   const error = useSelector((state) => state.posts.error)
+  const [searchParams, setSearchParams] = useSearchParams()
   const [groups, setGroups] = useState({})
   const [links, setLinks] = useState([])
 
@@ -40,20 +46,36 @@ function MainNavbar() {
     setGroups(newGroups)
   }, [posts])
 
-  console.log('groups:', groups)
-
   // create link with groups
   useEffect(() => {
     const postsLinks = []
+    // 'All' group
+    postsLinks.push(
+      <Dropdown.Item className={style.groupLink} key="all" href={`/`}>
+        <FontAwesomeIcon className={style.groupArrow} icon={faChevronRight} />
+        <span className={style.groupName}>ALL</span>
+      </Dropdown.Item>
+    )
+
+    // All groups
     for (const key in groups) {
       postsLinks.push(
-        <Dropdown.Item className={style.groupLink} key={key} href={`/group/${key}`}>
-          {key}
+        <Dropdown.Item
+          className={style.groupLink}
+          key={key}
+          href={`/?group=${key}`}
+        >
+          <FontAwesomeIcon className={style.groupArrow} icon={faChevronRight} />
+          <span className={style.groupName}>{key.toUpperCase()}</span>
         </Dropdown.Item>
       )
       groups[key].forEach((post) => {
         postsLinks.push(
-          <Dropdown.Item className={style.link} key={post.id} href={`/posts/${post.id}`}>
+          <Dropdown.Item
+            className={style.link}
+            key={post.id}
+            href={`/posts/${post.id}`}
+          >
             {post.title}
           </Dropdown.Item>
         )
@@ -80,7 +102,7 @@ function MainNavbar() {
               {!posts ? (
                 <Spinner as="span" animation="border" size="sm" />
               ) : (
-                <>Posts</>
+                <>{searchParams.get('group')?.toUpperCase() || 'ALL'}</>
               )}
             </Dropdown.Toggle>
             <Dropdown.Menu align="end" className={style.dropdownMenu}>

@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSquareCaretUp } from '@fortawesome/free-solid-svg-icons'
+import { faCaretUp } from '@fortawesome/free-solid-svg-icons'
 import style from './anchor.module.scss'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useRef, useState, useEffect, useCallback } from 'react'
 
 function Anchor() {
-  const [isVisible, setIsVisible] = useState(false)
+  const anchorRef = useRef()
 
   // scroll to top
   const toTop = useCallback(() => {
@@ -13,11 +13,12 @@ function Anchor() {
   }, [])
 
   // check scroll position
+  const scrollBeforeShow = 100
   const checkScrollTop = useCallback(() => {
-    if (window.scrollY > 50) {
-      setIsVisible(true)
+    if (window.scrollY > scrollBeforeShow) {
+      anchorRef.current.style.opacity = 0.6
     } else {
-      setIsVisible(false)
+      anchorRef.current.style.opacity = 0
     }
   }, [])
 
@@ -31,15 +32,9 @@ function Anchor() {
   }, [checkScrollTop])
 
   return (
-    <>
-      {isVisible && (
-        <FontAwesomeIcon
-          onClick={toTop}
-          className={style.anchor}
-          icon={faSquareCaretUp}
-        />
-      )}
-    </>
+    <div ref={anchorRef} className={style.anchor} onClick={toTop}>
+      <FontAwesomeIcon className={style.anchorIcon} icon={faCaretUp} />
+    </div>
   )
 }
 
