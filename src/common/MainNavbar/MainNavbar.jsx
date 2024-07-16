@@ -4,6 +4,9 @@ import Navbar from 'react-bootstrap/Navbar'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Spinner from 'react-bootstrap/Spinner'
 
+// react
+import { useState, useEffect } from 'react'
+
 // style
 import './mainNavbar.css'
 import style from './mainNavbar.module.scss'
@@ -16,16 +19,49 @@ function MainNavbar() {
   const posts = useSelector((state) => state.posts.data.data)
   const status = useSelector((state) => state.posts.status)
   const error = useSelector((state) => state.posts.error)
+  const [groups, setGroups] = useState({})
+  const [links, setLinks] = useState([])
 
-  let postsLinks = null
+  // (new) groups
+  useEffect(() => {
+    if (!posts) return
 
-  if (posts) {
-    postsLinks = posts.map((post) => (
-      <Dropdown.Item key={post.id} href={`/posts/${post.id}`}>
-        {post.title}
-      </Dropdown.Item>
-    ))
-  }
+    const newGroups = {}
+    posts.forEach((post) => {
+      const key = post.group
+      if (key) {
+        if (newGroups[key]) {
+          newGroups[key].push(post)
+        } else {
+          newGroups[key] = [post]
+        }
+      }
+    })
+    setGroups(newGroups)
+  }, [posts])
+
+  console.log('groups:', groups)
+
+  // create link with groups
+  useEffect(() => {
+    const postsLinks = []
+    for (const key in groups) {
+      postsLinks.push(
+        <Dropdown.Item className={style.groupLink} key={key} href={`/group/${key}`}>
+          {key}
+        </Dropdown.Item>
+      )
+      groups[key].forEach((post) => {
+        postsLinks.push(
+          <Dropdown.Item className={style.link} key={post.id} href={`/posts/${post.id}`}>
+            {post.title}
+          </Dropdown.Item>
+        )
+      })
+    }
+
+    setLinks(postsLinks)
+  }, [groups])
 
   return (
     <>
@@ -48,7 +84,7 @@ function MainNavbar() {
               )}
             </Dropdown.Toggle>
             <Dropdown.Menu align="end" className={style.dropdownMenu}>
-              {postsLinks}
+              {links}
             </Dropdown.Menu>
           </Dropdown>
         </Container>
