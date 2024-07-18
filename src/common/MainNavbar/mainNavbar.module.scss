@@ -61,10 +61,15 @@
   backdrop-filter: blur(5px) brightness(60%) !important;
   padding: 10px;
   z-index: 10;
+  max-height: 390px;
+  overflow-y: scroll;
+  overflow-x: visible;
+  scrollbar-color: rgba(255, 0, 0, 0.35) rgba(0, 0, 0, 0.5);
 }
 
 .dropdownMenu:active {
   background-color: black;
+  overflow-x: visible;
 }
 
 .dropdownMenu a {
@@ -78,11 +83,13 @@
 
 // post link
 .dropdownMenu .link {
+  transition: all 0.2s ease-in-out;
+
   &:hover {
     background-color: var(--pink);
     color: white;
     width: 105%;
-    transform: scale(1.03) translateX(13px);
+    transform: scale(1.03) translateX(10px);
   }
   :active {
     background-color: var(--pink);
