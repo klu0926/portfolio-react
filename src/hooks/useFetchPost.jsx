@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux'
 import { setPosts, setLoading, setError } from '../store/postsSlice'
 import { useEffect } from 'react'
 
+console.log('fetch post current url:', url)
+
 function useFetchPosts() {
   // actual function starts here
   // URL
@@ -24,7 +26,7 @@ function useFetchPosts() {
     } else if (error) {
       dispatch(setError(error.message))
     }
-  }, [data,isLoading, error, dispatch])
+  }, [data, isLoading, error, dispatch])
 
   return { mutate }
 }

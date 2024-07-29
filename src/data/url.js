@@ -1,5 +1,5 @@
 const isLocal = window.location.hostname === 'localhost';
-const heroku = ''
+const heroku = 'https://klu-portfolio-server-5858060573f4.herokuapp.com'
 const local = 'http://localhost:3000'
 
 const url = {
