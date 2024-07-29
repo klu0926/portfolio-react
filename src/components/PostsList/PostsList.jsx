@@ -54,7 +54,10 @@ const PostsList = () => {
   // loading
   if (status === 'loading') {
     content = (
-      <Container className="h-100 d-flex justify-content-center">
+      <Container
+        className="h-100 d-flex justify-content-center"
+        style={{ marginTop: '100px' }}
+      >
         <div>
           <Spinner as="span" animation="border" size="sm" />
           <span className="ps-2">LOADING</span>
@@ -114,7 +117,7 @@ const PostsList = () => {
       return (
         <Container key={post.id} className={style.container}>
           <Row className="gap-3">
-            <Col className={style.coverImageDiv}  sm={12} md={6}>
+            <Col className={style.coverImageDiv} sm={12} md={6}>
               <Image
                 className={style.coverImage}
                 src={post.cover}
