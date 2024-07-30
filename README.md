@@ -7,8 +7,6 @@ This project is the frontend component of my portfolio website, developed using 
 
 🌐 **Backend GitHub:** [https://github.com/klu0926/portfolio-backend](https://github.com/klu0926/portfolio-backend)
 
-![preview](/public/images/screenshots/portfolio-preview.gif)
-
 ## Table of Contents 📖
 
 1. [Screenshots](#1-screenshots-)
