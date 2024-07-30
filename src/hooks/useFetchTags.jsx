@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 function useFetchPosts() {
   // actual function starts here
   // URL
-  let postUrl = url.server + '/tags'
+  let postUrl = url.server + '/api' + '/tags'
 
   // SWR
   const response = useSWRFetcher(postUrl)

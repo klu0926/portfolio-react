@@ -9,7 +9,7 @@ console.log('fetch post current url:', url)
 function useFetchPosts() {
   // actual function starts here
   // URL
-  let postUrl = url.server + '/posts'
+  let postUrl = url.server + '/api' + '/posts'
 
   // SWR
   const response = useSWRFetcher(postUrl)
