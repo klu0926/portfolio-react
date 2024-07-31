@@ -1,0 +1,116 @@
+.toggleButton {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  right: 5%;
+  bottom: 13%;
+  background-color: var(--pink);
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  z-index: 100;
+  color: white;
+}
+
+.chatRoomContainer {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  right: 100px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px;
+  background-color: black;
+  border: 1px solid var(--pink);
+  border-radius: 10px;
+  max-width: 100%;
+  width: 350px;
+  z-index: 100;
+}
+
+.chatRoom {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: rgb(22, 22, 22);
+  padding: 20px 10px;
+  height: 350px;
+  width: 100%;
+  overflow-y: scroll;
+  scrollbar-color: var(--pink-dark) rgb(0, 0, 0, 0);
+}
+
+.messageInput {
+  background-color: rgb(91, 91, 91);
+  outline: none;
+  color: white;
+  border: none;
+}
+
+.messageInput::placeholder {
+  color: rgb(190, 190, 190);
+}
+
+.messageInput:focus {
+  background-color: rgb(59, 59, 59);
+  color: white;
+  outline: none;
+  box-shadow: none;
+}
+
+.sendButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--pink);
+  border-radius: 0px 5px 5px 0px;
+
+  &:hover {
+    background-color: var(--pink-light);
+  }
+}
+
+.message {
+  color: white;
+  padding: 2px 5px;
+  border-radius: 5px;
+  margin: 0px;
+}
+
+.serverMessage {
+  background-color: #000000;
+  text-align: center;
+}
+.serverMessage span {
+  display: block;
+}
+
+.receiveMessage {
+  align-self: flex-start;
+  background-color: #f95f5f;
+}
+
+.sendMessage {
+  align-self: flex-end;
+  background-color: #0084ff;
+}
+
+
+
+@media (min-width: 1200px) {
+  .toggleButton {
+    right: 7%;
+  }
+}
+
+@media (min-width: 1800px) {
+  .toggleButton {
+    right: 10%;
+  }
+}

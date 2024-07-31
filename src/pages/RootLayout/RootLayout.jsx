@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom'
 import Footer from '../../common/Footer/Footer'
 import MainNavbar from '../../common/MainNavbar/MainNavbar'
 import Anchor from '../../common/Anchor/Anchor'
+import SocketChat from '../../components/SocketChat/SocketChat'
 
 // fetch post
 import useFetchPosts from '../../hooks/useFetchPost'
@@ -12,9 +13,10 @@ function RootLayout() {
   useFetchTags()
   return (
     <>
-      <Anchor/>
+      <Anchor />
       <MainNavbar />
       <Outlet />
+      <SocketChat />
       <Footer />
     </>
   )
