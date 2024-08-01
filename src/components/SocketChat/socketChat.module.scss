@@ -6,13 +6,36 @@
   align-items: center;
   gap: 10px;
   right: 5%;
-  bottom: 13%;
-  background-color: var(--pink);
-  width: 40px;
-  height: 40px;
+  bottom: 12%;
+  background-color: black;
+  border: 2px solid var(--pink);
+  width: 42px;
+  height: 42px;
+  border-radius: 3px;
   cursor: pointer;
   z-index: 100;
-  color: white;
+  color: var(--pink);
+  opacity: 0.7;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
+  &:active {
+    scale: 0.9;
+  }
+  &.active {
+    background-color: var(--pink);
+    color: white;
+    opacity: 1;
+    box-shadow: 0 0 15px 2px rgba(255, 104, 104, 0.5),
+      0px 5px 30px 5px rgba(255, 104, 104, 0.25);
+  }
+}
+
+.chatIcon {
+  width: 25px;
+  height: 25px;
 }
 
 .chatRoomContainer {
@@ -22,16 +45,24 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
-  right: 100px;
-  top: 50%;
-  transform: translateY(-50%);
+  right: 5%;
+  bottom: 15%;
   padding: 10px;
   background-color: black;
   border: 1px solid var(--pink);
   border-radius: 10px;
   max-width: 100%;
-  width: 350px;
+  width: 380px;
   z-index: 100;
+  transition: all 0.2s ease-in-out;
+  opacity: 0;
+  visibility: hidden; /* Hide the element initially */
+
+  &.active {
+    bottom: 20%;
+    opacity: 1;
+    visibility: visible; /* Hide the element initially */
+  }
 }
 
 .chatRoom {
@@ -39,29 +70,31 @@
   flex-direction: column;
   gap: 10px;
   background-color: rgb(22, 22, 22);
-  padding: 20px 10px;
-  height: 350px;
+  padding: 10px;
+  height: 300px;
   width: 100%;
+  border-radius: 5px;
   overflow-y: scroll;
-  scrollbar-color: var(--pink-dark) rgb(0, 0, 0, 0);
+  scrollbar-color: var(--pink) rgb(0, 0, 0, 0);
 }
 
-.messageInput {
-  background-color: rgb(91, 91, 91);
+.input {
+  background-color: rgb(58, 58, 58);
   outline: none;
   color: white;
   border: none;
-}
+  font-size: 0.9rem;
 
-.messageInput::placeholder {
-  color: rgb(190, 190, 190);
-}
-
-.messageInput:focus {
-  background-color: rgb(59, 59, 59);
-  color: white;
-  outline: none;
-  box-shadow: none;
+  &::placeholder {
+    color: rgb(190, 190, 190);
+  }
+  &:focus,
+  &:active {
+    background-color: rgb(59, 59, 59);
+    color: white;
+    outline: none;
+    box-shadow: none;
+  }
 }
 
 .sendButton {
@@ -74,43 +107,83 @@
   &:hover {
     background-color: var(--pink-light);
   }
+  &:focus {
+    outline: none;
+    box-shadow: none;
+    background-color: var(--pink-light);
+  }
 }
 
 .message {
   color: white;
-  padding: 2px 5px;
+  padding: 5px 10px;
   border-radius: 5px;
   margin: 0px;
+  font-size: 0.9rem;
+  max-width: 80%;
 }
 
-.serverMessage {
-  background-color: #000000;
-  text-align: center;
-}
-.serverMessage span {
-  display: block;
+.luMessageDiv {
+  display: flex;
+  align-items: start;
+  gap: 7px;
+  img {
+    width: 22px;
+    height: 22px;
+    border-radius: 2px;
+    margin-top: 3px;
+  }
 }
 
-.receiveMessage {
+.luMessage {
   align-self: flex-start;
   background-color: #f95f5f;
 }
 
-.sendMessage {
+.myMessage {
   align-self: flex-end;
   background-color: #0084ff;
+  span {
+    margin-left: auto;
+  }
 }
 
-
+.serverMessageDiv {
+  display: flex;
+  width: 100%;
+  animation: var(--kf-shakeY) 0.5s ease-in-out;
+  .serverMessage {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 5px;
+    align-self: center;
+    background-color: rgb(161, 161, 161);
+    color: rgb(43, 42, 42);
+    text-align: center;
+    font-size: 0.8rem;
+    width: 100%;
+    max-width: 100%;
+    span {
+      margin: auto;
+    }
+  }
+}
 
 @media (min-width: 1200px) {
   .toggleButton {
+    right: 7%;
+  }
+  .chatRoomContainer {
     right: 7%;
   }
 }
 
 @media (min-width: 1800px) {
   .toggleButton {
+    right: 10%;
+  }
+  .chatRoomContainer {
     right: 10%;
   }
 }
