@@ -12,14 +12,23 @@ import {
 
 import { useState, useEffect, useRef } from 'react'
 
+// redux
+import { useDispatch } from 'react-redux'
+import { setMessages } from '../../store/messageSlice'
+import { useSelector } from 'react-redux'
+//   const posts = useSelector((state) => state.posts.data.data)
+
 function SocketChat() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
-  const [chat, setChat] = useState([])
   const [toggle, setToggle] = useState(false)
   const inputRef = useRef()
   const chatRoomRef = useRef()
+
+  // redux
+  const messages = useSelector((state) => state.messages)
+  const dispatch = useDispatch()
 
   const sendMessageHandler = () => {
     if (message.trim() === '') return
@@ -46,29 +55,29 @@ function SocketChat() {
   // Receive message
   useEffect(() => {
     socket.on('sentMessage', (data) => {
-      console.log('message:', data)
-      console.log('my id:', socket.id)
-      setChat((old) => [
-        ...old,
-        {
-          from: data.from,
-          message: data.message,
-        },
-      ])
+      console.log('get message:', data)
+      dispatch(
+        setMessages([
+          ...messages,
+          {
+            from: data.from,
+            message: data.message,
+          },
+        ])
+      )
     })
     return () => {
       socket.off('sentMessage')
     }
-  }, [chat])
+  }, [dispatch, messages])
 
   // scroll to bottom on new message
   useEffect(() => {
     if (chatRoomRef.current) {
       const chatRoom = chatRoomRef.current
       chatRoom.scrollTop = chatRoom.scrollHeight - chatRoom.clientHeight // Scroll to the bottom
-      // clientTop + scrollTop = scrollHeight
     }
-  }, [chat]) // Runs whenever the `chat` array changes
+  }, [messages]) // Runs whenever the `chat` array changes
 
   return (
     <>
@@ -116,39 +125,32 @@ function SocketChat() {
         />
         {/* chatroom */}
         <div className={style.chatRoom} ref={chatRoomRef}>
-          {chat.map((c, index) => {
+          {messages.map((c, index) => {
             if (c.from === 'server') {
               // from server
               return (
-                <>
-                  <div className={style.serverMessageDiv}>
-                    <p
-                      key={index}
-                      className={`${style.message} ${style.serverMessage}`}
-                    >
-                      <FontAwesomeIcon
-                        icon={faTriangleExclamation}
-                        className={style.serverIcon}
-                      />
-                      <span>{c.message}</span>
-                    </p>
-                  </div>
-                </>
+                <div
+                  key={`${c.id}-${index}`}
+                  className={style.serverMessageDiv}
+                >
+                  <p className={`${style.message} ${style.serverMessage}`}>
+                    <FontAwesomeIcon
+                      icon={faTriangleExclamation}
+                      className={style.serverIcon}
+                    />
+                    <span>{c.message}</span>
+                  </p>
+                </div>
               )
             } else if (c.from === 'lu') {
               // from lu
               return (
-                <>
-                  <div className={style.luMessageDiv}>
-                    <img src="/favicon/favicon-32x32.png" />
-                    <p
-                      key={index}
-                      className={`${style.message} ${style.luMessage}`}
-                    >
-                      <span>{c.message}</span>
-                    </p>
-                  </div>
-                </>
+                <div key={`${c.id}-${index}`} className={style.luMessageDiv}>
+                  <img src="/favicon/favicon-32x32.png" />
+                  <p className={`${style.message} ${style.luMessage}`}>
+                    <span>{c.message}</span>
+                  </p>
+                </div>
               )
             } else {
               // from myself
