@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCommentDots,
   faTriangleExclamation,
+  faX,
+  faPlay,
 } from '@fortawesome/free-solid-svg-icons'
 
 import { useState, useEffect, useRef } from 'react'
@@ -81,6 +83,19 @@ function SocketChat() {
       </div>
       {/* chatroom container */}
       <div className={`${style.chatRoomContainer} ${toggle && style.active}`}>
+        {/* top */}
+        <div className={style.top}>
+          <h3>Message</h3>
+          <div
+            id="close"
+            className={style.close}
+            onClick={() => {
+              setToggle((old) => !old)
+            }}
+          >
+            <FontAwesomeIcon className={style.closeIcon} icon={faX} />
+          </div>
+        </div>
         {/* name input */}
         <input
           type="text"
@@ -160,11 +175,11 @@ function SocketChat() {
           />
           <button
             onClick={sendMessageHandler}
-            className={style.sendButton}
+            className={`${style.sendButton} ${message && style.active}`}
             type="button"
             id="button-addon2"
           >
-            Send
+            <FontAwesomeIcon className={style.sendIcon} icon={faPlay} />
           </button>
         </div>
       </div>

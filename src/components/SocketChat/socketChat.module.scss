@@ -65,6 +65,42 @@
   }
 }
 
+.top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h3 {
+    margin: 0;
+    color: var(--pink);
+  }
+}
+
+.close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  color: var(--pink);
+  cursor: pointer;
+
+  .closeIcon {
+    width: 15px;
+    height: 15px;
+    transition: transform 0.2s linear;
+  }
+
+  &:hover {
+    background-color: var(--pink);
+    color: white;
+  }
+  &:active {
+    scale: 0.9;
+  }
+}
+
 .chatRoom {
   display: flex;
   flex-direction: column;
@@ -101,17 +137,46 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--pink);
   border-radius: 0px 5px 5px 0px;
+  color: rgb(128, 128, 128);
+  background-color: rgb(22, 22, 22);
+  border: none;
+  outline: none;
+  box-shadow: none;
+  transition: none;
+  pointer-events: none;
 
-  &:hover {
-    background-color: var(--pink-light);
+  &.active {
+    background-color: var(--pink);
+    color: white;
+    pointer-events: auto;
+    &:hover,
+    &:focus,
+    &:active {
+      border: none;
+      outline: none;
+      box-shadow: none;
+      color: white;
+      background-color: var(--pink-light);
+    }
+    &:active {
+      scale: 0.96;
+    }
   }
-  &:focus {
+
+  &:hover,
+  &:focus,
+  &:active {
+    border: none;
     outline: none;
     box-shadow: none;
-    background-color: var(--pink-light);
+    color: rgb(128, 128, 128);
+    background-color: rgb(22, 22, 22);
   }
+}
+
+.sendIcon {
+  padding: 4px 10px;
 }
 
 .message {
@@ -119,7 +184,7 @@
   padding: 5px 10px;
   border-radius: 5px;
   margin: 0px;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   max-width: 80%;
 }
 
@@ -137,12 +202,12 @@
 
 .luMessage {
   align-self: flex-start;
-  background-color: #f95f5f;
+  background-color: var(--pink);
 }
 
 .myMessage {
   align-self: flex-end;
-  background-color: #0084ff;
+  background-color: #368ee0;
   span {
     margin-left: auto;
   }
