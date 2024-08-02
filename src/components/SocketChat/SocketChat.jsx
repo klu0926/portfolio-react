@@ -8,9 +8,10 @@ import {
   faTriangleExclamation,
   faX,
   faPlay,
+  faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 
 // redux
 import { useDispatch } from 'react-redux'
@@ -19,16 +20,38 @@ import { useSelector } from 'react-redux'
 //   const posts = useSelector((state) => state.posts.data.data)
 
 function SocketChat() {
+  const [userData, setUserData] = useState({})
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
   const [toggle, setToggle] = useState(false)
+  const [hasLogin, setHasLogin] = useState(false)
   const inputRef = useRef()
   const chatRoomRef = useRef()
 
   // redux
   const messages = useSelector((state) => state.messages)
   const dispatch = useDispatch()
+
+  const storeUserData = (name, email) => {
+    if (name && email) {
+      localStorage.setItem(
+        'userData',
+        JSON.stringify({
+          name,
+          email,
+        })
+      )
+    }
+    setUserData({ name, email })
+  }
+
+  const loginHandler = (e) => {
+    e.preventDefault()
+    if (name.trim() && email.trim()) {
+      storeUserData(name, email)
+    }
+  }
 
   const sendMessageHandler = () => {
     if (message.trim() === '') return
@@ -52,16 +75,41 @@ function SocketChat() {
     }
   }
 
-  // Receive message
+  // auto set userData
+  useEffect(() => {
+    let storedUserData = localStorage.getItem('userData')
+    if (storedUserData) {
+      storedUserData = JSON.parse(storedUserData)
+      if (!storedUserData.email) return
+      setUserData(storedUserData)
+    }
+  }, [])
+
+  // socket login
+  useEffect(() => {
+    if (hasLogin) return
+    if (userData?.name && userData?.email) {
+      socket.emit('login', {
+        name: userData.name,
+        email: userData.email,
+      })
+      setHasLogin(true)
+      console.log('socket login')
+    }
+  }, [userData, hasLogin])
+
+  // Socket Receive message
   useEffect(() => {
     socket.on('sentMessage', (data) => {
-      console.log('get message:', data)
       dispatch(
         setMessages([
           ...messages,
           {
             from: data.from,
-            message: data.message,
+            message: {
+              message: data.message.message,
+              date: data.message.date,
+            },
           },
         ])
       )
@@ -105,32 +153,42 @@ function SocketChat() {
             <FontAwesomeIcon className={style.closeIcon} icon={faX} />
           </div>
         </div>
-        {/* name input */}
-        <input
-          type="text"
-          className={`form-control ${style.input}`}
-          id="name"
-          placeholder="name"
-          onChange={(e) => setName(e.target.value)}
-          autoComplete="off"
-        />
-        {/* email input */}
-        <input
-          type="email"
-          className={`form-control ${style.input}`}
-          id="email"
-          placeholder="email"
-          onChange={(e) => setEmail(e.target.value)}
-          autoComplete="off"
-        />
+
+        {/* login Div  */}
+        <div className={`${style.loginDiv} ${!hasLogin ? style.active : ''}`}>
+          <h3>Message</h3>
+          <p>Please enter your name and email to start</p>
+          {/* name input */}
+          <input
+            type="text"
+            className={`form-control ${style.input}`}
+            id="name"
+            placeholder="name"
+            onChange={(e) => setName(e.target.value)}
+            autoComplete="off"
+          />
+          {/* email input */}
+          <input
+            type="email"
+            className={`form-control ${style.input}`}
+            id="email"
+            placeholder="email"
+            onChange={(e) => setEmail(e.target.value)}
+            autoComplete="off"
+          />
+          <button className={style.loginButton} onClick={loginHandler}>
+            OK
+          </button>
+        </div>
+
         {/* chatroom */}
         <div className={style.chatRoom} ref={chatRoomRef}>
-          {messages.map((c, index) => {
-            if (c.from === 'server') {
+          {messages.map((item, index) => {
+            if (item.from === 'server') {
               // from server
               return (
                 <div
-                  key={`${c.id}-${index}`}
+                  key={`${item.from}-${index}`}
                   className={style.serverMessageDiv}
                 >
                   <p className={`${style.message} ${style.serverMessage}`}>
@@ -138,17 +196,20 @@ function SocketChat() {
                       icon={faTriangleExclamation}
                       className={style.serverIcon}
                     />
-                    <span>{c.message}</span>
+                    <span>{item.message.message}</span>
                   </p>
                 </div>
               )
-            } else if (c.from === 'lu') {
+            } else if (item.from === 'lu') {
               // from lu
               return (
-                <div key={`${c.id}-${index}`} className={style.luMessageDiv}>
+                <div
+                  key={`${item.from}-${index}`}
+                  className={style.luMessageDiv}
+                >
                   <img src="/favicon/favicon-32x32.png" />
                   <p className={`${style.message} ${style.luMessage}`}>
-                    <span>{c.message}</span>
+                    <span>{item.message.message}</span>
                   </p>
                 </div>
               )
