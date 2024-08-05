@@ -21,6 +21,11 @@ import { useSelector } from 'react-redux'
 //   const posts = useSelector((state) => state.posts.data.data)
 
 function SocketChat() {
+  // redux
+  const reduxMessages = useSelector((state) => state.messages)
+  const dispatch = useDispatch()
+ // const [allMessages, setAllMessages] = useState([])
+ 
   const [userData, setUserData] = useState({})
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -32,10 +37,6 @@ function SocketChat() {
   const emailInputRef = useRef()
   const chatRoomRef = useRef()
   const loginErrorRef = useRef()
-
-  // redux
-  const messages = useSelector((state) => state.messages)
-  const dispatch = useDispatch()
 
   // Handlers ---------------------------
   const storeUserHandler = (name, email) => {
@@ -68,15 +69,10 @@ function SocketChat() {
 
   const sendMessageHandler = () => {
     if (message.trim() === '') return
-    if (!userData) return
-    const data = {
-      from: socket.id,
-      name: userData.name,
-      email: userData.email,
+    socket.emit('message', {
+      from: 'user',
       message,
-      date: new Date(),
-    }
-    socket.emit('sentMessage', data)
+    })
     // clean up message
     messageInputRef.current.value = ''
     setMessage('')
@@ -140,32 +136,26 @@ function SocketChat() {
         name: userData.name,
         email: userData.email,
       })
-      setHasLogin(true)
-      console.log('socket login')
     }
   }, [userData, hasLogin])
 
+  // socket onLogin
+  useEffect(() => {
+    socket.on('isLogin', (isLogin) => {
+      if (isLogin) setHasLogin(true)
+    })
+  })
+
   // socket onSendMessage
   useEffect(() => {
-    socket.on('sentMessage', (data) => {
+    socket.on('message', (messages) => {
       console.log('Messages:', messages)
-      dispatch(
-        setMessages([
-          ...messages,
-          {
-            from: data.from,
-            message: {
-              message: data.message.message,
-              date: data.message.date,
-            },
-          },
-        ])
-      )
+      dispatch(setMessages(messages))
     })
     return () => {
-      socket.off('sentMessage')
+      socket.off('message')
     }
-  }, [dispatch, messages])
+  }, [dispatch, reduxMessages])
 
   // scroll to bottom on new message
   useEffect(() => {
@@ -173,7 +163,8 @@ function SocketChat() {
       const chatRoom = chatRoomRef.current
       chatRoom.scrollTop = chatRoom.scrollHeight - chatRoom.clientHeight // Scroll to the bottom
     }
-  }, [messages]) // Runs whenever the `chat` array changes
+  }, [reduxMessages]) // Runs whenever the `chat` array changes
+
 
   // Return
   return (
@@ -250,12 +241,12 @@ function SocketChat() {
 
         {/* chatroom */}
         <div className={style.chatRoom} ref={chatRoomRef}>
-          {messages.map((item, index) => {
-            if (item.from === 'server') {
+          {reduxMessages.map((m, index) => {
+            if (m.from === 'server') {
               // from server
               return (
                 <div
-                  key={`${item.from}-${index}`}
+                  key={`${m.from}-${index}`}
                   className={style.serverMessageDiv}
                 >
                   <p className={`${style.message} ${style.serverMessage}`}>
@@ -263,20 +254,17 @@ function SocketChat() {
                       icon={faTriangleExclamation}
                       className={style.serverIcon}
                     />
-                    <span>{item.message.message}</span>
+                    <span>{m.message}</span>
                   </p>
                 </div>
               )
-            } else if (item.from === 'lu') {
+            } else if (m.from === 'lu') {
               // from lu
               return (
-                <div
-                  key={`${item.from}-${index}`}
-                  className={style.luMessageDiv}
-                >
+                <div key={`${m.from}-${index}`} className={style.luMessageDiv}>
                   <img src="/favicon/favicon-32x32.png" />
                   <p className={`${style.message} ${style.luMessage}`}>
-                    <span>{item.message.message}</span>
+                    <span>{m.message}</span>
                   </p>
                 </div>
               )
@@ -284,10 +272,10 @@ function SocketChat() {
               // from myself
               return (
                 <p
-                  key={`${item.from}-${index}`}
+                  key={`${m.from}-${index}`}
                   className={`${style.message} ${style.myMessage}`}
                 >
-                  <span>{item.message}</span>
+                  <span>{m.message}</span>
                 </p>
               )
             }
