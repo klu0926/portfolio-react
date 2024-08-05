@@ -88,6 +88,20 @@
   }
 }
 
+.logoutButton {
+  padding: 3px 6px;
+  border: none;
+  color: grey;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  background-color: black;
+  &:hover {
+    background-color: var(--pink);
+    color: white;
+  }
+}
+
 .chatRoomContainer {
   position: fixed;
   display: flex;
@@ -128,6 +142,12 @@
   }
 }
 
+.topRightDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .close {
   display: flex;
   justify-content: center;
@@ -136,7 +156,6 @@
   height: 30px;
   color: var(--pink);
   cursor: pointer;
-
   .closeIcon {
     width: 15px;
     height: 15px;
@@ -291,6 +310,17 @@
     span {
       margin: auto;
     }
+  }
+}
+
+.errorSpan {
+  color: var(--pink);
+  font-size: 0.9rem;
+  visibility: hidden;
+
+  &.active {
+    animation: var(--kf-shakeY) 0.5s ease-in-out;
+    visibility: visible;
   }
 }
 
