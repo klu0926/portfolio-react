@@ -24,8 +24,8 @@ function SocketChat() {
   // redux
   const reduxMessages = useSelector((state) => state.messages)
   const dispatch = useDispatch()
- // const [allMessages, setAllMessages] = useState([])
- 
+  // const [allMessages, setAllMessages] = useState([])
+
   const [userData, setUserData] = useState({})
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -139,14 +139,21 @@ function SocketChat() {
     }
   }, [userData, hasLogin])
 
-  // socket onLogin
+  // socket on login
   useEffect(() => {
-    socket.on('isLogin', (isLogin) => {
-      if (isLogin) setHasLogin(true)
+    socket.on('login', (data) => {
+      if (data.login) setHasLogin(true)
     })
   })
 
-  // socket onSendMessage
+  // socket on error
+  useEffect(() => {
+    socket.on('error', (message) => {
+      errorMessageHandler(message)
+    })
+  })
+
+  // socket on message
   useEffect(() => {
     socket.on('message', (messages) => {
       console.log('Messages:', messages)
@@ -164,7 +171,6 @@ function SocketChat() {
       chatRoom.scrollTop = chatRoom.scrollHeight - chatRoom.clientHeight // Scroll to the bottom
     }
   }, [reduxMessages]) // Runs whenever the `chat` array changes
-
 
   // Return
   return (
