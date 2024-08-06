@@ -53,6 +53,7 @@ function SocketChat() {
   }
 
   const loginHandler = () => {
+    console.log('name:', name, 'email:', email)
     if (name.trim() && email.trim()) {
       storeUserHandler(name, email)
       errorMessageHandler('')
@@ -65,6 +66,8 @@ function SocketChat() {
     localStorage.removeItem('userData')
     setUserData(null)
     setHasLogin(false)
+    nameInputRef.current.value = ''
+    emailInputRef.current.value = ''
   }
 
   const sendMessageHandler = () => {
@@ -131,7 +134,8 @@ function SocketChat() {
   // auto socket login
   useEffect(() => {
     if (hasLogin) return
-    if (userData?.name && userData?.email) {
+    if (!userData) return
+    if (userData.name && userData.email) {
       socket.emit('login', {
         name: userData.name,
         email: userData.email,
