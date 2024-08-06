@@ -68,6 +68,8 @@ function SocketChat() {
     setHasLogin(false)
     nameInputRef.current.value = ''
     emailInputRef.current.value = ''
+    // emit to server
+    socket.emit('logout')
   }
 
   const sendMessageHandler = () => {
