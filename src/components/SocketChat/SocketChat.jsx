@@ -39,23 +39,27 @@ function SocketChat() {
   const loginErrorRef = useRef()
 
   // Handlers ---------------------------
-  const storeUserHandler = (name, email) => {
-    if (name && email) {
+  const storeUserHandler = (user) => {
+    const { id, email, name } = user
+    if (id && email && name) {
       localStorage.setItem(
         'userData',
         JSON.stringify({
+          id,
           name,
           email,
         })
       )
     }
-    setUserData({ name, email })
+    setUserData({ id, name, email })
   }
 
   const loginHandler = () => {
-    console.log('name:', name, 'email:', email)
     if (name.trim() && email.trim()) {
-      storeUserHandler(name, email)
+      socket.emit('login', {
+        email,
+        name,
+      })
       errorMessageHandler('')
     } else {
       errorMessageHandler('Missing name and email')
@@ -76,6 +80,7 @@ function SocketChat() {
     if (message.trim() === '') return
     socket.emit('message', {
       from: 'user',
+      id: userData.id,
       message,
     })
     // clean up message
@@ -148,7 +153,12 @@ function SocketChat() {
   // socket on login
   useEffect(() => {
     socket.on('login', (data) => {
-      if (data.login) setHasLogin(true)
+      setHasLogin(data.login)
+
+      // store to local storage
+      if (data.user) {
+        storeUserHandler(data.user)
+      }
     })
   })
 
@@ -162,7 +172,6 @@ function SocketChat() {
   // socket on message
   useEffect(() => {
     socket.on('message', (messages) => {
-      console.log('Messages:', messages)
       dispatch(setMessages(messages))
     })
     return () => {
