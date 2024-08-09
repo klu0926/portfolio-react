@@ -1,4 +1,5 @@
 import url from '../../data/url'
+import dayjs from 'dayjs'
 const server = url.server
 const socket = io.connect(server)
 import style from './socketChat.module.scss'
@@ -265,6 +266,8 @@ function SocketChat() {
         {/* chatroom */}
         <div className={style.chatRoom} ref={chatRoomRef}>
           {reduxMessages.map((m, index) => {
+            const messageDate = dayjs(m.createdAt).format('MMMM D, h:mm A')
+
             if (m.from === 'server') {
               // from server
               return (
@@ -284,22 +287,31 @@ function SocketChat() {
             } else if (m.from === 'lu') {
               // from lu
               return (
-                <div key={`${m.from}-${index}`} className={style.luMessageDiv}>
-                  <img src="/favicon/favicon-32x32.png" />
-                  <p className={`${style.message} ${style.luMessage}`}>
-                    <span>{m.message}</span>
-                  </p>
+                <div key={`${m.from}-${index}`}>
+                  <div className={style.luMessageDiv}>
+                    <img src="/favicon/favicon-32x32.png" />
+                    <div className={`${style.message} ${style.luMessage}`}>
+                      {m.message}
+                    </div>
+                  </div>
+                  <span className={`${style.luMessageDate}`}>{messageDate}</span>
                 </div>
               )
             } else if (m.from === 'user') {
               // from user
               return (
-                <p
+                <div
                   key={`${m.from}-${index}`}
-                  className={`${style.message} ${style.myMessage}`}
+                  className={style.userMessageDiv}
                 >
-                  <span>{m.message}</span>
-                </p>
+                  <div
+                    key={`${m.from}-${index}`}
+                    className={`${style.message} ${style.userMessage}`}
+                  >
+                    {m.message}
+                  </div>
+                  <span className={`${style.messageDate}`}>{messageDate}</span>
+                </div>
               )
             }
           })}

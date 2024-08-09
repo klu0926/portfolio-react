@@ -108,15 +108,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   right: 5%;
   bottom: 15%;
   padding: 10px;
   background-color: black;
   border: 1px solid var(--pink);
   border-radius: 10px;
-  max-width: 100%;
-  width: 380px;
+  max-width: 90%;
+  width: 430px;
   z-index: 30;
   transition: all 0.2s ease-in-out;
   opacity: 0;
@@ -174,7 +174,7 @@
 .chatRoom {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
   background-color: rgb(22, 22, 22);
   padding: 10px;
   height: 300px;
@@ -255,13 +255,18 @@
   border-radius: 5px;
   margin: 0px;
   font-size: 0.95rem;
-  max-width: 80%;
+  max-width: 60%;
+}
+
+.messageDate {
+  font-size: 0.7rem;
+  color: rgb(138, 138, 138);
 }
 
 .luMessageDiv {
   display: flex;
   align-items: start;
-  gap: 7px;
+  gap: 5px;
   img {
     width: 22px;
     height: 22px;
@@ -275,7 +280,21 @@
   background-color: var(--pink);
 }
 
-.myMessage {
+.luMessageDate {
+  font-size: 0.7rem;
+  color: rgb(138, 138, 138);
+  margin-left: 30px;
+}
+
+.userMessageDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: end;
+  gap: 5px;
+}
+
+.userMessage {
   align-self: flex-end;
   background-color: #368ee0;
   span {
