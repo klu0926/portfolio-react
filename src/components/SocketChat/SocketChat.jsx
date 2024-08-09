@@ -80,7 +80,7 @@ function SocketChat() {
     if (message.trim() === '') return
     socket.emit('message', {
       from: 'user',
-      id: userData.id,
+      userId: userData.id,
       message,
     })
     // clean up message
@@ -92,7 +92,7 @@ function SocketChat() {
     // remove message
     loginErrorRef.current.classList.remove(`${style.active}`)
     loginErrorRef.current.innerText = ''
-    void loginErrorRef.current.offsetWidth
+    void loginErrorRef.current.offsetWidth // reset class
 
     // if Login
     // ...
@@ -172,6 +172,7 @@ function SocketChat() {
   // socket on message
   useEffect(() => {
     socket.on('message', (messages) => {
+      console.log('get messages:', messages)
       dispatch(setMessages(messages))
     })
     return () => {
@@ -182,8 +183,9 @@ function SocketChat() {
   // scroll to bottom on new message
   useEffect(() => {
     if (chatRoomRef.current) {
+      // Scroll to the bottom
       const chatRoom = chatRoomRef.current
-      chatRoom.scrollTop = chatRoom.scrollHeight - chatRoom.clientHeight // Scroll to the bottom
+      chatRoom.scrollTop = chatRoom.scrollHeight - chatRoom.clientHeight
     }
   }, [reduxMessages]) // Runs whenever the `chat` array changes
 
@@ -289,8 +291,8 @@ function SocketChat() {
                   </p>
                 </div>
               )
-            } else {
-              // from myself
+            } else if (m.from === 'user') {
+              // from user
               return (
                 <p
                   key={`${m.from}-${index}`}
