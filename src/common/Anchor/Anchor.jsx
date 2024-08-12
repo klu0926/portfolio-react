@@ -16,9 +16,10 @@ function Anchor() {
   const scrollBeforeShow = 100
   const checkScrollTop = useCallback(() => {
     if (window.scrollY > scrollBeforeShow) {
-      anchorRef.current.style.opacity = 0.6
+      anchorRef.current.classList.add(style.active)
     } else {
-      anchorRef.current.style.opacity = 0
+      anchorRef.current.classList.remove(style.active)
+      void anchorRef.current.offsetWidth // reset class
     }
   }, [])
 
