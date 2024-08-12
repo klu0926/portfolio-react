@@ -4,7 +4,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
   right: 5%;
   bottom: 12%;
   background-color: black;
@@ -30,6 +29,43 @@
     opacity: 1;
     box-shadow: 0 0 15px 2px rgba(255, 104, 104, 0.5),
       0px 5px 30px 5px rgba(255, 104, 104, 0.25);
+  }
+}
+
+.newMessageCountDiv {
+  position: relative;
+  width: 100%;
+  height: 0px;
+}
+
+.newMessageCount {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  transform: translateY(-20px) translateX(15px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  background-color: var(--pink);
+  border-radius: 50%;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+  visibility: hidden;
+  &.active {
+    visibility: visible;
+    animation: newMessageCountJump 0.3s linear;
+  }
+}
+
+@keyframes newMessageCountJump {
+  0% {
+    transform: translateY(-20px) translateX(15px);
+  }
+  40% {
+    transform: translateY(-25px) translateX(15px);
   }
 }
 

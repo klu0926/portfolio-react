@@ -33,11 +33,16 @@ function SocketChat() {
   const [message, setMessage] = useState('')
   const [toggle, setToggle] = useState(false)
   const [hasLogin, setHasLogin] = useState(false)
+  const [lastRead, setLastRead] = useState('')
+  const [newMessagesCount, setNewMessagesCount] = useState(0)
   const messageInputRef = useRef()
   const nameInputRef = useRef()
   const emailInputRef = useRef()
   const chatRoomRef = useRef()
+  const chatRoomContainerRef = useRef()
+  const toggleButtonRef = useRef()
   const loginErrorRef = useRef()
+  const newMessageCountRef = useRef()
 
   // Handlers ---------------------------
   const storeUserHandler = (user) => {
@@ -128,6 +133,19 @@ function SocketChat() {
     }
   }
 
+  const toggleButtonHandler = () => {
+    setToggle((old) => !old)
+    if (hasLogin) {
+      setLastReadTime()
+    }
+  }
+
+  const setLastReadTime = () => {
+    const now = new Date().toISOString()
+    localStorage.setItem('lastReadObject', now)
+    setLastRead(now)
+  }
+
   // Effects ---------------------------------
   // auto set userData
   useEffect(() => {
@@ -173,13 +191,54 @@ function SocketChat() {
   // socket on message
   useEffect(() => {
     socket.on('message', (messages) => {
-      console.log('get messages:', messages)
       dispatch(setMessages(messages))
+
+      // if chat is open, update last read
+      if (toggle) {
+        setLastRead(new Date().toISOString())
+      }
     })
     return () => {
       socket.off('message')
     }
-  }, [dispatch, reduxMessages])
+  }, [dispatch, reduxMessages, toggle])
+
+  // auto get lastReadObject
+  useEffect(() => {
+    let lastReadString = localStorage.getItem('lastReadObject') || ''
+    if (lastReadString) {
+      setLastRead(lastReadString)
+    }
+  }, [])
+
+  // count new messages
+  useEffect(() => {
+    let newMessagesCount = 0
+
+    if (reduxMessages && lastRead) {
+      const filterMessages = reduxMessages.filter((message) => {
+        return message.from !== 'user'
+      })
+      filterMessages.forEach((message) => {
+        const isAfter = dayjs(new Date(message.createdAt)).isAfter(
+          new Date(lastRead)
+        )
+        if (isAfter) {
+          newMessagesCount++
+        }
+      })
+    }
+    // toggle active
+    if (!toggle && newMessagesCount > 0) {
+      // reset class for animation
+      newMessageCountRef.current.classList.remove(style.active)
+      void newMessageCountRef.current.offsetWidth // reset class
+      newMessageCountRef.current.classList.add(style.active)
+    } else {
+      newMessageCountRef.current.classList.remove(style.active)
+    }
+    setNewMessagesCount(newMessagesCount)
+  }, [reduxMessages, lastRead, newMessageCountRef, toggle])
 
   // scroll to bottom on new message
   useEffect(() => {
@@ -190,20 +249,51 @@ function SocketChat() {
     }
   }, [reduxMessages]) // Runs whenever the `chat` array changes
 
+  // toggle off chatRoom if click outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const isInside = chatRoomContainerRef.current.contains(event.target)
+      const isChatRoomActive = chatRoomContainerRef.current.classList.contains(
+        style.active
+      )
+
+      if (toggleButtonRef.current.contains(event.target)) {
+        return
+      }
+
+      if (!isInside && isChatRoomActive) {
+        setToggle(false)
+      }
+    }
+    // Add event listener
+    document.addEventListener('click', handleClickOutside)
+    // Cleanup function
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [])
+
   // Return
   return (
     <>
       {/* toggle button */}
       <div
+        ref={toggleButtonRef}
         className={`${style.toggleButton} ${toggle && style.active}`}
-        onClick={() => {
-          setToggle((old) => !old)
-        }}
+        onClick={toggleButtonHandler}
       >
+        <div className={style.newMessageCountDiv}>
+          <div className={style.newMessageCount} ref={newMessageCountRef}>
+            {newMessagesCount}
+          </div>
+        </div>
         <FontAwesomeIcon icon={faCommentDots} className={style.chatIcon} />
       </div>
       {/* chatroom container */}
-      <div className={`${style.chatRoomContainer} ${toggle && style.active}`}>
+      <div
+        ref={chatRoomContainerRef}
+        className={`${style.chatRoomContainer} ${toggle && style.active}`}
+      >
         {/* top */}
         <div className={style.top}>
           <h3>Message</h3>
@@ -294,7 +384,9 @@ function SocketChat() {
                       {m.message}
                     </div>
                   </div>
-                  <span className={`${style.luMessageDate}`}>{messageDate}</span>
+                  <span className={`${style.luMessageDate}`}>
+                    {messageDate}
+                  </span>
                 </div>
               )
             } else if (m.from === 'user') {
