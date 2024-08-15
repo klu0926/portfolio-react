@@ -203,6 +203,13 @@ function SocketChat() {
     }
   }, [dispatch, reduxMessages, toggle])
 
+  // socket on adminDeleteUser (when user is delete by admin)
+  useEffect(() => {
+    socket.on('adminDeleteUser', () => {
+      logoutHandler()
+    })
+  }, [])
+
   // auto get lastReadObject
   useEffect(() => {
     let lastReadString = localStorage.getItem('lastReadObject') || ''
