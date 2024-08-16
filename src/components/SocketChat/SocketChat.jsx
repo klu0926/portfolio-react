@@ -1,3 +1,4 @@
+import useDisableIosTextFieldZoom from '../../hooks/useDisableIosFieldZoom'
 import url from '../../data/url'
 import dayjs from 'dayjs'
 const server = url.server
@@ -22,6 +23,8 @@ import { useSelector } from 'react-redux'
 //   const posts = useSelector((state) => state.posts.data.data)
 
 function SocketChat() {
+  // disable iOS text field zoom
+  useDisableIosTextFieldZoom()
   // redux
   const reduxMessages = useSelector((state) => state.messages)
   const dispatch = useDispatch()
