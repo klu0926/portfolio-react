@@ -72,6 +72,7 @@ function MainNavbar() {
       groups[key].forEach((post) => {
         postsLinks.push(
           <Dropdown.Item
+            draggable={false}
             className={style.link}
             key={post.id}
             href={`/posts/${post.id}`}
@@ -92,7 +93,7 @@ function MainNavbar() {
           <Navbar.Brand href="/" className="fw-bold">
             <button className={style.title}>LUSART</button>
           </Navbar.Brand>
-          <Dropdown>
+          <Dropdown className={style.dropdown}>
             <Dropdown.Toggle
               variant="outline-light"
               className={style.dropdownToggle}
