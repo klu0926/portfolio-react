@@ -102,7 +102,7 @@ function MainNavbar() {
               {!posts ? (
                 <Spinner as="span" animation="border" size="sm" />
               ) : (
-                <>{searchParams.get('group')?.toUpperCase() || 'ALL'}</>
+                <span>{searchParams.get('group')?.toUpperCase() || 'ALL'}</span>
               )}
             </Dropdown.Toggle>
             <Dropdown.Menu align="end" className={style.dropdownMenu}>

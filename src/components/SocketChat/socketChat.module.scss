@@ -12,7 +12,7 @@
   height: 42px;
   border-radius: 3px;
   cursor: pointer;
-  z-index: 100;
+  z-index: 50;
   color: var(--pink);
   opacity: 0.7;
   transition: all 0.2s ease-in-out;
@@ -40,10 +40,10 @@
 
 .newMessageCount {
   position: absolute;
+  display: none;
   top: 0px;
   right: 0px;
   transform: translateY(-20px) translateX(15px);
-  display: flex;
   justify-content: center;
   align-items: center;
   width: 25px;
@@ -53,9 +53,8 @@
   color: white;
   font-size: 0.8rem;
   font-weight: bold;
-  visibility: hidden;
   &.active {
-    visibility: visible;
+    display: flex;
     animation: newMessageCountJump 0.3s linear;
   }
 }
@@ -140,13 +139,13 @@
 
 .chatRoomContainer {
   position: fixed;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 15px;
   right: 5%;
-  bottom: 15%;
+  bottom: 100px;
   padding: 10px;
   background-color: black;
   border: 1px solid var(--pink);
@@ -156,12 +155,11 @@
   z-index: 30;
   transition: all 0.2s ease-in-out;
   opacity: 0;
-  visibility: hidden; /* Hide the element initially */
 
   &.active {
-    bottom: 20%;
+    display: flex;
+    bottom: 130px;
     opacity: 1;
-    visibility: visible; /* Hide the element initially */
   }
 }
 

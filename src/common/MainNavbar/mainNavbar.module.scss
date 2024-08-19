@@ -1,7 +1,7 @@
 .navbar {
   position: fixed;
   top: 0;
-  z-index: 20;
+  z-index: 10;
   width: 100%;
   background-color: rgba(255, 0, 0, 0.235) !important ;
   border-bottom: 2px solid var(--pink);
@@ -44,6 +44,7 @@
 }
 
 .dropdownToggle {
+  position: relative;
   display: flex;
   align-items: center;
   border: 2px solid var(--pink);
@@ -51,21 +52,22 @@
   padding: 2px 5px;
   font-size: 1rem;
   font-weight: normal;
+  z-index: 10;
 }
 
 .dropdownMenu {
   top: 160% !important;
   background-color: rgba(255, 255, 255, 0);
+  max-width: 300px;
   border: 2px solid var(--pink);
   border-radius: 3px;
   backdrop-filter: blur(5px) brightness(60%) !important;
   padding: 10px;
-  z-index: 10;
   max-height: 390px;
-  overflow-y: scroll;
-  overflow-x: visible;
   scrollbar-color: rgba(255, 0, 0, 0.35) rgba(0, 0, 0, 0.5);
+  overflow-y: scroll;
   overflow-x: hidden;
+  z-index: 200;
 }
 
 .dropdownMenu:active {
