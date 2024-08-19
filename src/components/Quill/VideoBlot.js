@@ -13,8 +13,8 @@ class VideoBlot extends BlockEmbed {
     node.setAttribute('muted', '1');
     node.setAttribute('autoplay', '1');
     node.style.setProperty('width', '100%');
-    node.style.setProperty('height', '500px');
-    node.style.setProperty('max-height', '1000px');
+    //node.style.setProperty('height', '500px');
+    // node.style.setProperty('max-height', '1000px');
 
     return node;
   }
