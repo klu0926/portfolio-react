@@ -24,6 +24,10 @@
     background-color: white;
   }
 
+  .dropdown-toggle.show span {
+    color: var(--pink);
+  }
+
   .dropdown-toggle:active {
     color: var(--pink) !important;
   }
