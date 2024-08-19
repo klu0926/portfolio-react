@@ -98,7 +98,6 @@ function MainNavbar() {
               variant="outline-light"
               className={style.dropdownToggle}
               disabled={!posts}
-              style={{ borderWidth: '2.25px', fontWeight: 'bold' }}
             >
               {!posts ? (
                 <Spinner as="span" animation="border" size="sm" />

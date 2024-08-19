@@ -51,12 +51,16 @@
   color: var(--pink);
   padding: 2px 5px;
   font-size: 1rem;
-  font-weight: normal;
+  font-weight: bold;
   z-index: 10;
 }
 
-.dropdownToggle:focus span {
-  background-color: none;
+.dropdownToggle:focus,
+.dropdownToggle:active {
+  background-color: var(--pink);
+  outline: none;
+  box-shadow: none;
+  border-color: white;
 }
 
 .dropdownMenu {
